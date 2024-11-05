@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd'
 import 'antd/dist/reset.css'
 import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
 import { MainPage } from 'pages/Main'
+import { TabChatPage } from 'pages/Tab/Chat'
 import { TabGroupPage } from 'pages/Tab/Group'
 import { TabHomePage } from 'pages/Tab/Home'
 import { UserInfoPage } from 'pages/User/Info'
@@ -52,6 +53,7 @@ root.render(
 
               <Route path="/tab/home" element={<TabHomePage />} />
               <Route path="/tab/group" element={<TabGroupPage />} />
+              <Route path="/tab/chat" element={<TabChatPage />} />
             </Routes>
           </ContentContainer>
         </Container>
