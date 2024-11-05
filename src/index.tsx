@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd'
 import 'antd/dist/reset.css'
 import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
 import { MainPage } from 'pages/Main'
+import { TabHomePage } from 'pages/Tab/Home'
 import { UserInfoPage } from 'pages/User/Info'
 import { UserJoinPage } from 'pages/User/Join'
 import { UserLoginPage } from 'pages/User/Login'
@@ -43,9 +44,12 @@ root.render(
           <ContentContainer>
             <Routes>
               <Route path="/" element={<MainPage />} />
+
               <Route path="/user/login" element={<UserLoginPage />} />
               <Route path="/user/join" element={<UserJoinPage />} />
               <Route path="/user/info" element={<UserInfoPage />} />
+
+              <Route path="/tab/home" element={<TabHomePage />} />
             </Routes>
           </ContentContainer>
         </Container>
