@@ -5,7 +5,7 @@ import { MainPage } from 'pages/Main'
 import { TabChatPage } from 'pages/Tab/Chat'
 import { TabGroupPage } from 'pages/Tab/Group'
 import { TabHomePage } from 'pages/Tab/Home'
-import { UserInfoPage } from 'pages/User/Info'
+import { TabUserInfoPage } from 'pages/Tab/UserInfo'
 import { UserJoinPage } from 'pages/User/Join'
 import { UserLoginPage } from 'pages/User/Login'
 import React from 'react'
@@ -49,11 +49,11 @@ root.render(
 
               <Route path="/user/login" element={<UserLoginPage />} />
               <Route path="/user/join" element={<UserJoinPage />} />
-              <Route path="/user/info" element={<UserInfoPage />} />
 
               <Route path="/tab/home" element={<TabHomePage />} />
               <Route path="/tab/group" element={<TabGroupPage />} />
               <Route path="/tab/chat" element={<TabChatPage />} />
+              <Route path="/tab/user-info" element={<TabUserInfoPage />} />
             </Routes>
           </ContentContainer>
         </Container>
