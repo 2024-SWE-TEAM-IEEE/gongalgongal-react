@@ -11,6 +11,7 @@ export const Root = styled.div`
   box-sizing: border-box;
   border-radius: 12px;
   box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 `
 
 export const HeaderContainer = styled.div`

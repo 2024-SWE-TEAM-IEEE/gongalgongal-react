@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   ContentContainer,
   ContentCountTypo,
@@ -18,8 +19,14 @@ type GroupCardProps = {
 }
 
 export const GroupCard: FC<GroupCardProps> = ({ className, title, description, memberCount }) => {
+  const navigate = useNavigate()
+
+  const onClickDetailsPage = () => {
+    navigate('/tab/group/details/1')
+  }
+
   return (
-    <Root className={className}>
+    <Root className={className} onClick={onClickDetailsPage}>
       <HeaderContainer>
         <HeaderTypo>{title}</HeaderTypo>
         <HeaderMenuContainer>
