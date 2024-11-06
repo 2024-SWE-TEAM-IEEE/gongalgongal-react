@@ -1,4 +1,6 @@
+import { Header } from 'components/Header'
 import { FC } from 'react'
+import { TabBar } from '../components/TabBar'
 import { Root } from './styled'
 
 type TabHomePageProps = {
@@ -6,5 +8,10 @@ type TabHomePageProps = {
 }
 
 export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
-  return <Root className={className}>TabHomePage</Root>
+  return (
+    <Root className={className}>
+      <Header />
+      <TabBar />
+    </Root>
+  )
 }
