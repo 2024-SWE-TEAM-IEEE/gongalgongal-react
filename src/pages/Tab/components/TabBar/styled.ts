@@ -1,14 +1,14 @@
 import { HomeOutlined, MessageOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
 import { PRIMARY_COLOR } from 'constants/color'
-import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
+import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH, TAB_BAR_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled.div`
   max-width: ${MOBILE_CONTAINER_MAX_WIDTH}px;
   width: 100%;
   min-width: ${MOBILE_CONTAINER_MIN_WIDTH}px;
-  height: 65px;
+  height: ${TAB_BAR_HEIGHT}px;
   background: white;
   display: flex;
   justify-content: space-around;
