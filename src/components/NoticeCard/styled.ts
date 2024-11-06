@@ -8,8 +8,9 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   background: white;
+  border: 1px #e9e9e9 solid;
   border-radius: 12px;
-  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.05);
 `
 
 export const ContentContainer = styled.div`
