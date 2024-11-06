@@ -10,7 +10,7 @@ export const Root = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: ${HEADER_HEIGHT}px;
-  padding-bottom: ${TAB_BAR_HEIGHT}px;
+  padding-bottom: ${TAB_BAR_HEIGHT + 20}px;
 `
 
 export const FilterContainer = styled.div`
@@ -21,6 +21,7 @@ export const FilterContainer = styled.div`
   align-items: center;
   padding: 15px 20px;
   box-sizing: border-box;
+  border: 1px #d9d9d9 solid;
   border-radius: 8px;
   margin-top: 20px;
 `
