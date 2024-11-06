@@ -2,7 +2,6 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
-import { TabBar } from 'components/TabBar'
 import { FC } from 'react'
 import {
   ContentButton,
@@ -157,7 +156,6 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
           그룹 가입하기
         </ContentButton>
       </ContentButtonContainer>
-      <TabBar />
     </Root>
   )
 }

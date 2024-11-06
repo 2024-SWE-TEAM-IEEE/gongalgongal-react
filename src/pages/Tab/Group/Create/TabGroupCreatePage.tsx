@@ -1,5 +1,4 @@
 import { Header } from 'components/Header'
-import { TabBar } from 'components/TabBar'
 import { FC, useState } from 'react'
 import {
   ContentButton,
@@ -132,7 +131,6 @@ export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) =
           공지 그룹 생성
         </ContentButton>
       </ContentButtonContainer>
-      <TabBar />
     </Root>
   )
 }
