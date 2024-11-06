@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import { HEADER_HEIGHT, TAB_BAR_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -34,4 +35,15 @@ export const GroupCardContainer = styled.div`
   padding: 0 20px;
   box-sizing: border-box;
   margin-top: 20px;
+`
+
+export const ContentButtonContainer = styled.div`
+  width: calc(100% - 40px);
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`
+
+export const ContentButton = styled(Button)`
+  width: 100%;
 `
