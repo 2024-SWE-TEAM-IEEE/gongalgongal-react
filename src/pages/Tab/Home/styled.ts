@@ -27,6 +27,7 @@ export const FilterContainer = styled.div`
 export const FilterChipContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 `
 
@@ -44,3 +45,14 @@ export const FilterChipTypo = styled(Typography)`
 `
 
 export const FilterChipButton = styled(Button)``
+
+export const NoticeCardContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-top: 20px;
+`
