@@ -9,7 +9,6 @@ export const Root = styled.div`
   flex-direction: column;
   background: white;
   border-radius: 12px;
-  box-sizing: 3px 3px 3px #0003;
   box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
 `
 
