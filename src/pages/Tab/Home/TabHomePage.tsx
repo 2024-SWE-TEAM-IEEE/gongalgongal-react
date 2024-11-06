@@ -1,7 +1,7 @@
 import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
+import { TabBar } from 'components/TabBar'
 import { FC } from 'react'
-import { TabBar } from '../components/TabBar'
 import {
   FilterChip,
   FilterChipButton,
