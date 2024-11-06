@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { NoticeCardIconType } from 'types/common'
 import {
   ContentContainer,
@@ -28,6 +29,12 @@ type NoticeCardProps = {
 }
 
 export const NoticeCard: FC<NoticeCardProps> = ({ className, iconType, title, author, date, description }) => {
+  const navigate = useNavigate()
+
+  const onClickDetailsButton = () => {
+    navigate('/notice/details/1')
+  }
+
   return (
     <Root className={className}>
       <ContentContainer>
@@ -46,7 +53,7 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, iconType, title, au
       </ContentContainer>
       <ContentDivider />
       <FooterContainer>
-        <FooterDetailsButton type={'text'} size={'small'}>
+        <FooterDetailsButton type={'text'} size={'small'} onClick={onClickDetailsButton}>
           자세히 보기
         </FooterDetailsButton>
         <FooterButtonContainer>
