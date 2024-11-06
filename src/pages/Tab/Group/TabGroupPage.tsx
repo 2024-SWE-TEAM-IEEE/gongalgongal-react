@@ -2,6 +2,7 @@ import { GroupCard } from 'components/GroupCard'
 import { Header } from 'components/Header'
 import { TabBar } from 'components/TabBar'
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ContentButton, ContentButtonContainer, FilterContainer, GroupCardContainer, Root } from './styled'
 
 type TabGroupPageProps = {
@@ -9,6 +10,12 @@ type TabGroupPageProps = {
 }
 
 export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
+  const navigate = useNavigate()
+
+  const onClickCreateButton = () => {
+    navigate('/tab/group/create')
+  }
+
   return (
     <Root className={className}>
       <Header />
@@ -22,7 +29,7 @@ export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
         <GroupCard title={'취업 정보'} description={'2023년도 학술제 개최 안내'} memberCount={24} />
       </GroupCardContainer>
       <ContentButtonContainer>
-        <ContentButton type={'primary'} size={'large'}>
+        <ContentButton type={'primary'} size={'large'} onClick={onClickCreateButton}>
           공지 그룹 생성
         </ContentButton>
       </ContentButtonContainer>
