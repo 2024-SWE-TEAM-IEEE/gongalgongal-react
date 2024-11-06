@@ -4,6 +4,7 @@ import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constant
 import { MainPage } from 'pages/Main'
 import { TabChatPage } from 'pages/Tab/Chat'
 import { TabGroupPage } from 'pages/Tab/Group'
+import { TabGroupDetailsPage } from 'pages/Tab/Group/Details'
 import { TabHomePage } from 'pages/Tab/Home'
 import { TabUserInfoPage } from 'pages/Tab/UserInfo'
 import { UserJoinPage } from 'pages/User/Join'
@@ -53,6 +54,7 @@ root.render(
 
               <Route path="/tab/home" element={<TabHomePage />} />
               <Route path="/tab/group" element={<TabGroupPage />} />
+              <Route path="/tab/group/details/:id" element={<TabGroupDetailsPage />} />
               <Route path="/tab/chat" element={<TabChatPage />} />
               <Route path="/tab/user-info" element={<TabUserInfoPage />} />
             </Routes>

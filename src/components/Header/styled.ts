@@ -1,4 +1,4 @@
-import { BellOutlined, SettingOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, BellOutlined, SettingOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
 import { PRIMARY_COLOR } from 'constants/color'
 import { HEADER_HEIGHT, MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
@@ -41,4 +41,15 @@ export const MenuButtonBell = styled(BellOutlined)`
 
 export const MenuButtonSetting = styled(SettingOutlined)`
   font-size: 20px;
+`
+
+export const MenuButtonBack = styled(ArrowLeftOutlined)``
+export const TitleTypo = styled(Typography)`
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+`
+export const MenuButtonSpace = styled.div`
+  width: 40px;
+  height: 40px;
 `
