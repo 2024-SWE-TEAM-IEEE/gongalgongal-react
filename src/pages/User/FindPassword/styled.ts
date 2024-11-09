@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Input, Typography, Form } from 'antd';
+import { Typography, Input, Form, Button } from 'antd';
 
 export const Root = styled.div`
   width: 100%;
@@ -31,16 +31,7 @@ export const BannerSubTitleTypo = styled(Typography)`
   text-align: center;
 `
 
-export const StyledForm = styled(Form)`
-  width: 100%;
-  padding: 0; 
-`
-
-export const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 5px; 
-`
-
-export const RegisterContainer = styled.div`
+export const FindContainer = styled.div`
   width: 100%;
   max-width: 400px;
   background: white;
@@ -54,24 +45,13 @@ export const RegisterContainer = styled.div`
   margin-top: -110px;
 `
 
-export const RegisterButton = styled(Button)`
+export const StyledForm = styled(Form)`
   width: 100%;
-  margin-top: 20px;
-  background-color: #457fca;
-  border: none;
-  color: white;
-
-  &:hover {
-    background-color: #5691c8;
-  }
+  padding: 0; 
 `
 
-export const GradeSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
+export const StyledFormItem = styled(Form.Item)`
+  margin-bottom: 5px; 
 `
 export const MajorSelect = styled.select`
   width: 100%;
@@ -80,12 +60,32 @@ export const MajorSelect = styled.select`
   border-radius: 5px;
   border: 1px solid #d9d9d9;
 `
-export const InterestSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
+
+export const SendNumButton = styled(Button)`
+  font-size: 14px;
+  color: white; 
+  width: auto; 
+  margin-bottom: 15px; 
+  margin-top: 10px;
+`
+export const ConfirmButton = styled(Button)`
+  font-size: 14px;
+  color: white; 
+  width: auto; 
+  margin-bottom: 15px; 
+  margin-top: 10px;
+`
+export const FooterContainer = styled.div`
+  text-align: center;
+  font-size: 14px;
+  color: #808080; 
+  margin-top: 20px; 
+`
+
+export const FooterLink = styled.a`
+  margin: 50px;
+  color: #007bff;
+  text-decoration: none;
 `
 
 export const InputField = styled(Input)`
