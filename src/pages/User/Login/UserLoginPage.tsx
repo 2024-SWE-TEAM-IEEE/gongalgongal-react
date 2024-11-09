@@ -21,7 +21,7 @@ import {
 } from './styled';
 
 type UserLoginPageProps = {
-  className?: string;
+  className?: string
 }
 
 export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {

@@ -5,6 +5,7 @@ import {
   BannerContainer,
   BannerTitleTypo,
   BannerSubTitleTypo,
+  FindTitleTypo,
   StyledForm,
   StyledFormItem,
   FindContainer,
@@ -26,12 +27,12 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
   const onClickSendCode = () => {
     console.log('인증번호 보내기 버튼 클릭');
     // 인증번호 보내기 내용 추가
-  };
+  }
 
   const onClickConfirmButton = () => {
     console.log('확인 버튼 클릭');
     navigate('/user/Login'); // 필요에 따라 경로 조정
-  };
+  }
 
   return (
     <Root className={className}>
@@ -42,8 +43,10 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
           중요한 공지를 한 눈에 확인하세요!
         </BannerSubTitleTypo>
       </BannerContainer>
+      
       <StyledForm layout="vertical">
         <FindContainer>
+          <FindTitleTypo>비밀번호 찾기</FindTitleTypo>
           <StyledFormItem
             name="name"
             label="이름"
@@ -100,5 +103,5 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
         </p>
       </FooterContainer>
     </Root>
-  );
-};
+  )
+}

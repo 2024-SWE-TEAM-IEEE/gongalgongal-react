@@ -17,7 +17,7 @@ import {
 
 type UserJoinPageProps = {
   className?: string;
-};
+}
 
 export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
   const onClickRegisterButton = () => {
     console.log('회원가입 버튼 클릭');
     navigate('/user/Login');
-  };
+  }
 
   return (
     <Root className={className}>
@@ -93,5 +93,5 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
         </StyledForm>
       </RegisterContainer>
     </Root>
-  );
-};
+  )
+}

@@ -6,7 +6,10 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+  min-height: 100vh;
+  position: relative; 
+  padding-bottom: 100px; 
+`
 
 export const BannerContainer = styled.div`
   width: 100%;
@@ -33,6 +36,7 @@ export const BannerSubTitleTypo = styled(Typography)`
 
 export const FindContainer = styled.div`
   width: 100%;
+  height: auto;
   max-width: 400px;
   background: white;
   border-radius: 10px;
@@ -43,6 +47,12 @@ export const FindContainer = styled.div`
   border-radius: 10px;
   margin: 0 auto;
   margin-top: -110px;
+`
+export const FindTitleTypo = styled(Typography)`
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
 `
 
 export const StyledForm = styled(Form)`
@@ -71,7 +81,7 @@ export const SendNumButton = styled(Button)`
 export const ConfirmButton = styled(Button)`
   font-size: 14px;
   color: white; 
-  width: auto; 
+  width: 100%; 
   margin-bottom: 15px; 
   margin-top: 10px;
 `
@@ -79,7 +89,10 @@ export const FooterContainer = styled.div`
   text-align: center;
   font-size: 14px;
   color: #808080; 
-  margin-top: 20px; 
+  position: absolute; 
+  bottom: 0; 
+  width: 100%; 
+  padding: 20px 0; 
 `
 
 export const FooterLink = styled.a`

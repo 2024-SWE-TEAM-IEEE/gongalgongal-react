@@ -5,6 +5,10 @@ export const Root = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 100vh; 
+  position: relative;
+  padding-bottom: 100px;
 `
 
 export const BannerContainer = styled.div`
@@ -108,7 +112,10 @@ export const FooterContainer = styled.div`
   text-align: center;
   font-size: 14px;
   color: #808080; 
-  margin-top: 80px; 
+  position: absolute; 
+  bottom: 0; 
+  width: 100%; 
+  padding: 20px 0;
 `
 
 export const FooterLink = styled.a`

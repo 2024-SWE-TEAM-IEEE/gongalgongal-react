@@ -6,7 +6,7 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const BannerContainer = styled.div`
   width: 100%;
