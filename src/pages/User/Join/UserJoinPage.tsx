@@ -6,13 +6,12 @@ import {
   BannerTitleTypo,
   BannerSubTitleTypo,
   RegisterContainer,
-  RegisterButton,
-  GradeSelect,
-  MajorSelect,
-  InterestSelect,
+  RegisterButton, InterestSelect,
   InputField,
   StyledForm,
-  StyledFormItem
+  StyledFormItem,
+  FooterContainer,
+  FooterLink
 } from './styled';
 
 type UserJoinPageProps = {
@@ -62,23 +61,7 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
           >
             <InputField type="password" placeholder="비밀번호 확인" />
           </StyledFormItem>
-          <StyledFormItem label="학년 선택">
-            <GradeSelect>
-              <option value="">학년 선택</option>
-              <option value="1">1학년</option>
-              <option value="2">2학년</option>
-              <option value="3">3학년</option>
-              <option value="4">4학년</option>
-            </GradeSelect>
-          </StyledFormItem>
-          <StyledFormItem label="전공 선택">
-            <MajorSelect>
-              <option value="">전공 선택</option>
-              <option value="cs">컴퓨터공학과</option>
-              <option value="bio">생물학</option>
-              <option value="eng">영어</option>
-            </MajorSelect>
-          </StyledFormItem>
+          
           <StyledFormItem label="관심사 선택">
             <InterestSelect>
               <option value="">관심사 선택</option>
@@ -92,6 +75,18 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
           </RegisterButton>
         </StyledForm>
       </RegisterContainer>
+
+      <FooterContainer>
+        <p>
+          <FooterLink href="/terms-of-service">
+            이용약관
+          </FooterLink>
+          {' '}
+          <FooterLink href="/privacy-policy">
+            개인정보처리방침
+          </FooterLink>
+        </p>
+      </FooterContainer>
     </Root>
   )
 }

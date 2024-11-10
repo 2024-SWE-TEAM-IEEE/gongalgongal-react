@@ -6,6 +6,9 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  position: relative; 
+  padding-bottom: 100px; 
 `
 
 export const BannerContainer = styled.div`
@@ -66,26 +69,28 @@ export const RegisterButton = styled(Button)`
   }
 `
 
-export const GradeSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
-`
-export const MajorSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
-`
 export const InterestSelect = styled.select`
   width: 100%;
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
   border: 1px solid #d9d9d9;
+`
+
+export const FooterContainer = styled.div`
+  text-align: center;
+  font-size: 14px;
+  color: #808080; 
+  position: absolute; 
+  bottom: 0; 
+  width: 100%; 
+  padding: 20px 0; 
+`
+
+export const FooterLink = styled.a`
+  margin: 50px;
+  color: #007bff;
+  text-decoration: none;
 `
 
 export const InputField = styled(Input)`

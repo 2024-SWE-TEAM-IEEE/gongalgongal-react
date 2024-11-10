@@ -63,13 +63,6 @@ export const StyledForm = styled(Form)`
 export const StyledFormItem = styled(Form.Item)`
   margin-bottom: 5px; 
 `
-export const MajorSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
-`
 
 export const SendNumButton = styled(Button)`
   font-size: 14px;

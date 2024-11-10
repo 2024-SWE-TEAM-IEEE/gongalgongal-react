@@ -11,10 +11,9 @@ import {
   FindContainer,
   SendNumButton,
   ConfirmButton,
-  MajorSelect,
   FooterContainer,
   FooterLink,
-  InputField,
+  InputField
 } from './styled';
 
 type UserFindPasswordPageProps = {
@@ -53,15 +52,6 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
             rules={[{ required: false, message: '이름을 입력해주세요' }]}
           >
             <InputField placeholder="이름" />
-          </StyledFormItem>
-
-          <StyledFormItem label="전공 선택">
-            <MajorSelect>
-              <option value="">전공 선택</option>
-              <option value="cs">컴퓨터공학과</option>
-              <option value="bio">생물학</option>
-              <option value="eng">영어</option>
-            </MajorSelect>
           </StyledFormItem>
 
           <StyledFormItem
