@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const REQUEST_URL = ''
+export const REQUEST_URL = 'http://35.216.28.245:8080/api'
 
 type AxiosType = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
