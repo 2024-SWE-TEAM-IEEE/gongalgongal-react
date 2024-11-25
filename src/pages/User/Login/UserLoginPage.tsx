@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import { postUserLogin } from 'apis/postUserLogin'
 import { useLocalStorage } from 'hooks/useLocalStorage'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   BannerContainer,
@@ -63,10 +63,6 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
   const onClickFindPasswordButton = () => {
     navigate('/user/find-password')
   }
-
-  useEffect(() => {
-    removeAccessToken()
-  }, [])
 
   return (
     <Root className={className}>

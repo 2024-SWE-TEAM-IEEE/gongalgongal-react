@@ -72,7 +72,6 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
   }
 
   useEffect(() => {
-    removeAccessToken()
     getCategories().then((res) => {
       setCategoryList(res.data.categories.map((value: any) => ({ value: value.id, label: value.name })))
     })
