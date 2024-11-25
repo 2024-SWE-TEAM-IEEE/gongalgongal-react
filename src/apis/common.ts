@@ -22,7 +22,9 @@ export const commonAxios = (type: AxiosType) => async (url: string, params: any)
 }
 
 export type CommonResponseType<P> = {
-  success: boolean
+  status: {
+    type: 'success' | 'failed'
+    message: string
+  }
   data: P
-  error: any
 }
