@@ -1,30 +1,36 @@
-import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { getCategories } from 'apis/getCategories'
+import { FC, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
-  Root,
   BannerContainer,
-  BannerTitleTypo,
   BannerSubTitleTypo,
-  RegisterContainer,
-  RegisterButton, InterestSelect,
+  BannerTitleTypo,
+  FooterContainer,
+  FooterLink,
   InputField,
+  InterestSelect,
+  RegisterButton,
+  RegisterContainer,
+  Root,
   StyledForm,
   StyledFormItem,
-  FooterContainer,
-  FooterLink
-} from './styled';
+} from './styled'
 
 type UserJoinPageProps = {
-  className?: string;
+  className?: string
 }
 
 export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onClickRegisterButton = () => {
-    console.log('회원가입 버튼 클릭');
-    navigate('/user/Login');
+    console.log('회원가입 버튼 클릭')
+    navigate('/user/Login')
   }
+
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   return (
     <Root className={className}>
@@ -37,31 +43,19 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
       </BannerContainer>
       <RegisterContainer>
         <StyledForm layout="vertical">
-          <StyledFormItem
-            label="이름"
-            rules={[{ required: true, message: '이름을 입력해주세요' }]}
-          >
+          <StyledFormItem label="이름" rules={[{ required: true, message: '이름을 입력해주세요' }]}>
             <InputField placeholder="이름" />
           </StyledFormItem>
-          <StyledFormItem
-            label="이메일 주소"
-            rules={[{ required: true, message: '이메일 주소를 입력해주세요' }]}
-          >
+          <StyledFormItem label="이메일 주소" rules={[{ required: true, message: '이메일 주소를 입력해주세요' }]}>
             <InputField placeholder="이메일 주소" />
           </StyledFormItem>
-          <StyledFormItem
-            label="비밀번호"
-            rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}
-          >
+          <StyledFormItem label="비밀번호" rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}>
             <InputField type="password" placeholder="비밀번호" />
           </StyledFormItem>
-          <StyledFormItem
-            label="비밀번호 확인"
-            rules={[{ required: true, message: '비밀번호를 확인해주세요' }]}
-          >
+          <StyledFormItem label="비밀번호 확인" rules={[{ required: true, message: '비밀번호를 확인해주세요' }]}>
             <InputField type="password" placeholder="비밀번호 확인" />
           </StyledFormItem>
-          
+
           <StyledFormItem label="관심사 선택">
             <InterestSelect>
               <option value="">관심사 선택</option>
@@ -70,7 +64,7 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
               <option value="art">예술</option>
             </InterestSelect>
           </StyledFormItem>
-          <RegisterButton size={'middle'} type={'primary'} onClick={onClickRegisterButton}> 
+          <RegisterButton size={'middle'} type={'primary'} onClick={onClickRegisterButton}>
             회원가입
           </RegisterButton>
         </StyledForm>
@@ -78,13 +72,8 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
 
       <FooterContainer>
         <p>
-          <FooterLink href="/terms-of-service">
-            이용약관
-          </FooterLink>
-          {' '}
-          <FooterLink href="/privacy-policy">
-            개인정보처리방침
-          </FooterLink>
+          <FooterLink href="/terms-of-service">이용약관</FooterLink>{' '}
+          <FooterLink href="/privacy-policy">개인정보처리방침</FooterLink>
         </p>
       </FooterContainer>
     </Root>

@@ -1,41 +1,42 @@
-import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   BannerContainer,
-  BannerTitleTypo,
   BannerSubTitleTypo,
-  StyledForm,
-  StyledFormItem,
-  Root,
-  InputField,
-  LoginContainer,
-  LoginTitleTypo,
-  LoginButton,
-  FindPasswordButtonContainer,
+  BannerTitleTypo,
   FindPasswordButton,
-  JoinButton,
-  JoinTypo,
+  FindPasswordButtonContainer,
   FooterContainer,
   FooterLink,
-  JoinButtonContainer
-} from './styled';
+  InputField,
+  JoinButton,
+  JoinButtonContainer,
+  JoinTypo,
+  LoginButton,
+  LoginContainer,
+  LoginTitleTypo,
+  Root,
+  StyledForm,
+  StyledFormItem,
+} from './styled'
 
 type UserLoginPageProps = {
   className?: string
 }
 
 export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onClickLoginButton = () => {
-    navigate('/tab/Home');
+    navigate('/tab/home')
   }
+
   const onClickJoinButton = () => {
-    navigate('/user/Join');
+    navigate('/user/join')
   }
 
   const onClickFindPasswordButton = () => {
-    navigate('/user/FindPassword');
+    navigate('/user/find-password')
   }
 
   return (
@@ -70,30 +71,25 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
             </LoginButton>
           </StyledFormItem>
           <FindPasswordButtonContainer>
-              <FindPasswordButton type="link" onClick={onClickFindPasswordButton}>
-                비밀번호를 잊으셨나요?
-              </FindPasswordButton>
-            </FindPasswordButtonContainer>
+            <FindPasswordButton type="link" onClick={onClickFindPasswordButton}>
+              비밀번호를 잊으셨나요?
+            </FindPasswordButton>
+          </FindPasswordButtonContainer>
         </StyledForm>
       </LoginContainer>
       <JoinButtonContainer>
-        <JoinTypo>계정이 없으신가요?
-        <JoinButton type="link" onClick={onClickJoinButton}>
-         회원가입
-      </JoinButton>
-      </JoinTypo>
+        <JoinTypo>
+          계정이 없으신가요?
+          <JoinButton type="link" onClick={onClickJoinButton}>
+            회원가입
+          </JoinButton>
+        </JoinTypo>
       </JoinButtonContainer>
-      
-      
+
       <FooterContainer>
         <p>
-          <FooterLink href="/terms-of-service">
-            이용약관
-          </FooterLink>
-          {' '}
-          <FooterLink href="/privacy-policy">
-            개인정보처리방침
-          </FooterLink>
+          <FooterLink href="/terms-of-service">이용약관</FooterLink>{' '}
+          <FooterLink href="/privacy-policy">개인정보처리방침</FooterLink>
         </p>
       </FooterContainer>
     </Root>

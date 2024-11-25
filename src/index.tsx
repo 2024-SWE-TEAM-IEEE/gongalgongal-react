@@ -9,9 +9,9 @@ import { TabGroupCreatePage } from 'pages/Tab/Group/Create'
 import { TabGroupDetailsPage } from 'pages/Tab/Group/Details'
 import { TabHomePage } from 'pages/Tab/Home'
 import { TabUserInfoPage } from 'pages/Tab/UserInfo'
+import { UserFindPasswordPage } from 'pages/User/FindPassword'
 import { UserJoinPage } from 'pages/User/Join'
 import { UserLoginPage } from 'pages/User/Login'
-import { UserFindPasswordPage } from 'pages/User/FindPassword'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -54,7 +54,7 @@ root.render(
 
               <Route path="/user/login" element={<UserLoginPage />} />
               <Route path="/user/join" element={<UserJoinPage />} />
-              <Route path="/user/FindPassword" element={<UserFindPasswordPage/>}/>
+              <Route path="/user/find-password" element={<UserFindPasswordPage />} />
 
               <Route path="/tab/home" element={<TabHomePage />} />
 

@@ -1,36 +1,36 @@
-import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
-  Root,
   BannerContainer,
-  BannerTitleTypo,
   BannerSubTitleTypo,
-  FindTitleTypo,
-  StyledForm,
-  StyledFormItem,
-  FindContainer,
-  SendNumButton,
+  BannerTitleTypo,
   ConfirmButton,
+  FindContainer,
+  FindTitleTypo,
   FooterContainer,
   FooterLink,
-  InputField
-} from './styled';
+  InputField,
+  Root,
+  SendNumButton,
+  StyledForm,
+  StyledFormItem,
+} from './styled'
 
 type UserFindPasswordPageProps = {
   className?: string
 }
 
 export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onClickSendCode = () => {
-    console.log('인증번호 보내기 버튼 클릭');
+    console.log('인증번호 보내기 버튼 클릭')
     // 인증번호 보내기 내용 추가
   }
 
   const onClickConfirmButton = () => {
-    console.log('확인 버튼 클릭');
-    navigate('/user/Login'); // 필요에 따라 경로 조정
+    console.log('확인 버튼 클릭')
+    navigate('/user/login') // 필요에 따라 경로 조정
   }
 
   return (
@@ -42,15 +42,11 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
           중요한 공지를 한 눈에 확인하세요!
         </BannerSubTitleTypo>
       </BannerContainer>
-      
+
       <StyledForm layout="vertical">
         <FindContainer>
           <FindTitleTypo>비밀번호 찾기</FindTitleTypo>
-          <StyledFormItem
-            name="name"
-            label="이름"
-            rules={[{ required: false, message: '이름을 입력해주세요' }]}
-          >
+          <StyledFormItem name="name" label="이름" rules={[{ required: false, message: '이름을 입력해주세요' }]}>
             <InputField placeholder="이름" />
           </StyledFormItem>
 
@@ -83,13 +79,8 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
 
       <FooterContainer>
         <p>
-          <FooterLink href="/terms-of-service">
-            이용약관
-          </FooterLink>
-          {' '}
-          <FooterLink href="/privacy-policy">
-            개인정보처리방침
-          </FooterLink>
+          <FooterLink href="/terms-of-service">이용약관</FooterLink>{' '}
+          <FooterLink href="/privacy-policy">개인정보처리방침</FooterLink>
         </p>
       </FooterContainer>
     </Root>
