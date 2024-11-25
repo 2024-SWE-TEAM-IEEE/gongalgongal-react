@@ -23,7 +23,7 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
   const navigate = useNavigate()
 
   const onClickStartButton = () => {
-    navigate('/user/Login') //after fix
+    navigate('/user/login') //after fix
   }
 
   return (
