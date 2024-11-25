@@ -1,4 +1,7 @@
-import { FC } from 'react'
+import { message } from 'antd'
+import { postUserLogin } from 'apis/postUserLogin'
+import { useLocalStorage } from 'hooks/useLocalStorage'
+import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   BannerContainer,
@@ -25,10 +28,32 @@ type UserLoginPageProps = {
 }
 
 export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const { setItem: setAccessToken, removeItem: removeAccessToken } = useLocalStorage('access_token')
   const navigate = useNavigate()
 
   const onClickLoginButton = () => {
-    navigate('/tab/home')
+    if (email === '') {
+      message.error('이메일을 입력해주세요.')
+      return
+    }
+    if (password === '') {
+      message.error('비밀번호를 입력해주세요.')
+      return
+    }
+    postUserLogin({ email, password }).then((res) => {
+      if (res) {
+        if (res.status.type === 'success') {
+          alert('로그인에 성공했습니다.')
+          removeAccessToken()
+          setAccessToken(res.data.access_token)
+          navigate('/tab/home')
+        } else {
+          alert(res.status.message)
+        }
+      }
+    })
   }
 
   const onClickJoinButton = () => {
@@ -38,6 +63,10 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
   const onClickFindPasswordButton = () => {
     navigate('/user/find-password')
   }
+
+  useEffect(() => {
+    removeAccessToken()
+  }, [])
 
   return (
     <Root className={className}>
@@ -56,14 +85,18 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
             label="이메일 주소"
             rules={[{ required: false, message: '이메일 주소를 입력해주세요' }]}
           >
-            <InputField placeholder="이메일 주소" />
+            <InputField placeholder="이메일 주소" value={email} onChange={(e: any) => setEmail(e.target.value)} />
           </StyledFormItem>
           <StyledFormItem
             name="password"
             label="비밀번호"
             rules={[{ required: false, message: '비밀번호를 입력해주세요' }]}
           >
-            <InputField.Password placeholder="비밀번호" />
+            <InputField.Password
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e: any) => setPassword(e.target.value)}
+            />
           </StyledFormItem>
           <StyledFormItem>
             <LoginButton type="primary" onClick={onClickLoginButton}>

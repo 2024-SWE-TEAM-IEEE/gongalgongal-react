@@ -1,6 +1,7 @@
 import { message } from 'antd'
 import { getCategories } from 'apis/getCategories'
 import { postUserJoin } from 'apis/postUserJoin'
+import { useLocalStorage } from 'hooks/useLocalStorage'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -23,6 +24,7 @@ type UserJoinPageProps = {
 }
 
 export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
+  const { removeItem: removeAccessToken } = useLocalStorage('access_token')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -70,6 +72,7 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
   }
 
   useEffect(() => {
+    removeAccessToken()
     getCategories().then((res) => {
       setCategoryList(res.data.categories.map((value: any) => ({ value: value.id, label: value.name })))
     })
