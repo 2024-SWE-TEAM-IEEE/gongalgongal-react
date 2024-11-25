@@ -1,7 +1,6 @@
 import { message } from 'antd'
 import { getCategories } from 'apis/getCategories'
 import { postUserJoin } from 'apis/postUserJoin'
-import { useLocalStorage } from 'hooks/useLocalStorage'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -24,12 +23,11 @@ type UserJoinPageProps = {
 }
 
 export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
-  const { removeItem: removeAccessToken } = useLocalStorage('access_token')
-  const [categoryList, setCategoryList] = useState<any[]>([])
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
+  const [categoryList, setCategoryList] = useState<any[]>([])
   const [selectedCategoryList, setSelectedCategoryList] = useState<any[]>([])
   const navigate = useNavigate()
 

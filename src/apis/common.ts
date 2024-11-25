@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const REQUEST_URL = 'http://35.216.28.245:8080/api'
 
-type AxiosType = 'GET' | 'POST' | 'PATCH' | 'DELETE'
+type AxiosType = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT'
 
 export const commonAxios =
   (type: AxiosType) =>
@@ -23,6 +23,9 @@ export const commonAxios =
     }
     if (type === 'PATCH') {
       return await axios.patch(washedUrl, params, { headers })
+    }
+    if (type === 'PUT') {
+      return await axios.put(washedUrl, params, { headers })
     }
     if (type === 'DELETE') {
       return await axios.delete(washedUrl, { headers, data: params })

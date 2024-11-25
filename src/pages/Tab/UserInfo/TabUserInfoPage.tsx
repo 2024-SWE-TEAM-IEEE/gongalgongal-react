@@ -1,7 +1,10 @@
+import { message } from 'antd'
+import { getCategories } from 'apis/getCategories'
+import { getUserInfo } from 'apis/getUserInfo'
+import { putUserInfoUpdate } from 'apis/putUserInfoUpdate'
 import { Header } from 'components/Header'
 import { TabBar } from 'components/TabBar'
-import { INTEREST_TAG_LIST } from 'constants/tag'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   ContentButton,
   ContentContainer,
@@ -18,9 +21,53 @@ type TabUserInfoPageProps = {
 }
 
 export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
-  const onChangeTagList = (value: string) => {
-    console.log(`selected ${value}`)
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [categoryList, setCategoryList] = useState<any[]>([])
+  const [selectedCategoryList, setSelectedCategoryList] = useState<any[]>([])
+
+  const onChangeSelectedCategoryList = (value: any) => {
+    setSelectedCategoryList(value)
   }
+
+  const onSubmit = () => {
+    if (name === '') {
+      message.error('이름을 입력해주세요.')
+      return
+    }
+    if (password === '') {
+      message.error('비밀번호를 입력해주세요.')
+      return
+    }
+    if (selectedCategoryList.length === 0) {
+      message.error('관심사를 선택해주세요.')
+      return
+    }
+    putUserInfoUpdate({ email, name, password, selected_category_ids: selectedCategoryList }).then((res) => {
+      if (res) {
+        if (res.status.type === 'success') {
+          alert('프로필 정보 수정이 완료되었습니다.')
+          window.location.reload()
+        } else {
+          alert(res.status.message)
+        }
+      }
+    })
+  }
+
+  useEffect(() => {
+    getUserInfo().then((res) => {
+      if (res) {
+        setName(res.data.name)
+        setEmail(res.data.email)
+        setSelectedCategoryList(res.data.categories.map((value) => +value.id))
+      }
+    })
+    getCategories().then((res) => {
+      setCategoryList(res.data.categories.map((value: any) => ({ value: value.id, label: value.name })))
+    })
+  }, [])
 
   return (
     <Root className={className}>
@@ -29,31 +76,37 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
       <ContentContainer>
         <ContentInputContainer>
           <ContentInputTypo>이름</ContentInputTypo>
-          <ContentInput placeholder="이름을 입력해주세요." />
+          <ContentInput
+            placeholder="이름을 입력해주세요."
+            value={name}
+            onChange={(e: any) => setName(e.target.value)}
+          />
         </ContentInputContainer>
         <ContentInputContainer>
           <ContentInputTypo>이메일</ContentInputTypo>
-          <ContentInput value={'example@gmail.com'} disabled />
+          <ContentInput value={email} disabled />
         </ContentInputContainer>
         <ContentInputContainer>
           <ContentInputTypo>비밀번호</ContentInputTypo>
-          <ContentInput placeholder="비밀번호를 입력해주세요." />
-        </ContentInputContainer>
-        <ContentInputContainer>
-          <ContentInputTypo>비밀번호 확인</ContentInputTypo>
-          <ContentInput placeholder="비밀번호 확인을 입력해주세요." />
+          <ContentInput
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={(e: any) => setPassword(e.target.value)}
+          />
         </ContentInputContainer>
         <ContentInputContainer>
           <ContentInputTypo>관심사</ContentInputTypo>
           <ContentSelect
-            mode="tags"
+            mode="multiple"
             style={{ width: '100%' }}
-            placeholder="관심이 있는 태그를 선택해주세요."
-            onChange={onChangeTagList as any}
-            options={INTEREST_TAG_LIST as any}
+            placeholder="관심사 선택"
+            onChange={onChangeSelectedCategoryList}
+            value={selectedCategoryList}
+            options={categoryList}
           />
         </ContentInputContainer>
-        <ContentButton type={'primary'} size={'large'}>
+        <ContentButton type={'primary'} size={'large'} onClick={onSubmit}>
           수정
         </ContentButton>
       </ContentContainer>
