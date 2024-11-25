@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button, Input, Typography } from 'antd'
+import { Button, Input, Select, Typography } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { HEADER_HEIGHT, TAB_BAR_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
@@ -111,3 +111,5 @@ export const ContentButtonContainer = styled.div`
 export const ContentButton = styled(Button)`
   width: 100%;
 `
+
+export const ContentSelect = styled(Select)``

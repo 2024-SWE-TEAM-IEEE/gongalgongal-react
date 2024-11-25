@@ -1,5 +1,8 @@
+import { getCategories } from 'apis/getCategories'
+import { postNoticeGroup } from 'apis/postNoticeGroups'
 import { Header } from 'components/Header'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   ContentButton,
   ContentButtonContainer,
@@ -7,12 +10,8 @@ import {
   ContentSectionContainer,
   ContentSectionContentInput,
   ContentSectionContentTextArea,
-  ContentSectionItemContainer,
-  ContentSectionSiteContainer,
-  ContentSectionSiteDelete,
-  ContentSectionSiteTypo,
-  ContentSectionSiteWrapper,
   ContentSectionTitleTypo,
+  ContentSelect,
   ContentTitleTypo,
   Root,
 } from './styled'
@@ -22,12 +21,39 @@ type TabGroupCreatePageProps = {
 }
 
 export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) => {
-  const [name, setName] = useState<string>('동국 컴퓨터정보통신/AI/IT융합 분야 장학 및 대외활동')
-  const [description, setDescription] = useState<string>(
-    '동국대학교 컴퓨터공학과, AI융합학부, 또는 관련 전공 및 복수전공을 희망하는 분들을 위한 공지 그룹입니다. 각 학부의 공지를 자동으로 수집해 매일 중요한 정보만 선별하여 제공해드립니다.'
-  )
+  const navigate = useNavigate()
+  const [name, setName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const [url, setUrl] = useState<string>('')
-  const [category, setCategory] = useState<string>('')
+  const [categoryList, setCategoryList] = useState<any[]>([])
+  const [selectedCategoryList, setSelectedCategoryList] = useState<any[]>([])
+
+  const onChangeSelectedCategoryList = (value: any) => {
+    setSelectedCategoryList(value)
+  }
+
+  const onSubmit = () => {
+    postNoticeGroup({ group_name: name, crawl_site_url: url, description, group_category: selectedCategoryList }).then(
+      (res) => {
+        if (res) {
+          if (res.status.type === 'success') {
+            alert('공지 그룹 생성에 성공했습니다.')
+            navigate('/tab/group')
+          } else {
+            alert(res.status.message)
+          }
+        }
+      }
+    )
+  }
+
+  useEffect(() => {
+    getCategories().then((res) => {
+      if (res) {
+        setCategoryList(res.data.categories.map((value: any) => ({ value: value.id, label: value.name })))
+      }
+    })
+  }, [])
 
   return (
     <Root className={className}>
@@ -52,6 +78,15 @@ export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) =
           />
         </ContentSectionContainer>
         <ContentSectionContainer>
+          <ContentSectionTitleTypo>크롤링 사이트 url</ContentSectionTitleTypo>
+          <ContentSectionContentInput
+            placeholder={'크롤링 사이트 url을 입력해주세요.'}
+            value={url}
+            onChange={(e: any) => setUrl(e.target.value)}
+          />
+        </ContentSectionContainer>
+
+        {/* <ContentSectionContainer>
           <ContentSectionTitleTypo>크롤링 출처 사이트</ContentSectionTitleTypo>
           <ContentSectionSiteContainer>
             <ContentSectionItemContainer>
@@ -87,47 +122,20 @@ export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) =
           <ContentButton color={'primary'} variant={'outlined'}>
             크롤링 출처 사이트 추가
           </ContentButton>
-        </ContentSectionContainer>
+        </ContentSectionContainer> */}
         <ContentSectionContainer>
-          <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
-          <ContentSectionSiteContainer>
-            <ContentSectionItemContainer>
-              <ContentSectionSiteWrapper>
-                <ContentSectionSiteTypo>장학금</ContentSectionSiteTypo>
-              </ContentSectionSiteWrapper>
-              <ContentSectionSiteDelete />
-            </ContentSectionItemContainer>
-            <ContentSectionItemContainer>
-              <ContentSectionSiteWrapper>
-                <ContentSectionSiteTypo>시간표 변경</ContentSectionSiteTypo>
-              </ContentSectionSiteWrapper>
-              <ContentSectionSiteDelete />
-            </ContentSectionItemContainer>
-            <ContentSectionItemContainer>
-              <ContentSectionSiteWrapper>
-                <ContentSectionSiteTypo>시험 일정</ContentSectionSiteTypo>
-              </ContentSectionSiteWrapper>
-              <ContentSectionSiteDelete />
-            </ContentSectionItemContainer>
-            <ContentSectionItemContainer>
-              <ContentSectionSiteWrapper>
-                <ContentSectionSiteTypo>취업 정보</ContentSectionSiteTypo>
-              </ContentSectionSiteWrapper>
-              <ContentSectionSiteDelete />
-            </ContentSectionItemContainer>
-          </ContentSectionSiteContainer>
-          <ContentSectionContentInput
-            placeholder={'카테고리를 입력해주세요.'}
-            value={category}
-            onChange={(e: any) => setCategory(e.target.value)}
+          <ContentSectionTitleTypo>관심사</ContentSectionTitleTypo>
+          <ContentSelect
+            mode="multiple"
+            style={{ width: '100%' }}
+            placeholder="관심사 선택"
+            onChange={onChangeSelectedCategoryList}
+            options={categoryList}
           />
-          <ContentButton color={'primary'} variant={'outlined'}>
-            카테고리 추가
-          </ContentButton>
         </ContentSectionContainer>
       </ContentContainer>
       <ContentButtonContainer>
-        <ContentButton type={'primary'} size={'large'}>
+        <ContentButton type={'primary'} size={'large'} onClick={onSubmit}>
           공지 그룹 생성
         </ContentButton>
       </ContentButtonContainer>
