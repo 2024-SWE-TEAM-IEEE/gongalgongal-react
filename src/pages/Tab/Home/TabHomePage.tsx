@@ -1,7 +1,8 @@
+import { getNotices } from 'apis/getNotices'
 import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
 import { TabBar } from 'components/TabBar'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import {
   FilterChip,
   FilterChipButton,
@@ -17,6 +18,10 @@ type TabHomePageProps = {
 }
 
 export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
+  useEffect(() => {
+    getNotices()
+  }, [])
+
   return (
     <Root className={className}>
       <Header />
