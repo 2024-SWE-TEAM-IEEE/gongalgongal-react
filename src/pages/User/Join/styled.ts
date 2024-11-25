@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Button, Input, Typography, Form } from 'antd';
+import { Button, Form, Input, Select, Typography } from 'antd'
+import styled from 'styled-components'
 
 export const Root = styled.div`
   width: 100%;
@@ -7,8 +7,8 @@ export const Root = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  position: relative; 
-  padding-bottom: 100px; 
+  position: relative;
+  padding-bottom: 100px;
 `
 
 export const BannerContainer = styled.div`
@@ -36,11 +36,11 @@ export const BannerSubTitleTypo = styled(Typography)`
 
 export const StyledForm = styled(Form)`
   width: 100%;
-  padding: 0; 
+  padding: 0;
 `
 
 export const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 `
 
 export const RegisterContainer = styled.div`
@@ -80,11 +80,11 @@ export const InterestSelect = styled.select`
 export const FooterContainer = styled.div`
   text-align: center;
   font-size: 14px;
-  color: #808080; 
-  position: absolute; 
-  bottom: 0; 
-  width: 100%; 
-  padding: 20px 0; 
+  color: #808080;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 0;
 `
 
 export const FooterLink = styled.a`
@@ -96,3 +96,5 @@ export const FooterLink = styled.a`
 export const InputField = styled(Input)`
   margin-bottom: 5px;
 `
+
+export const ContentSelect = styled(Select)``
