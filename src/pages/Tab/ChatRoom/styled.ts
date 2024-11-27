@@ -56,3 +56,10 @@ export const InputContainer = styled.div`
   display: flex;
   gap: 10px; /* 입력 필드와 버튼 사이의 간격 */
 `
+
+export const ReportContentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`

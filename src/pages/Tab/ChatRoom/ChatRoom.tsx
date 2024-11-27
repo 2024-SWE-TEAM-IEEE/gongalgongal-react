@@ -6,7 +6,16 @@ import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChatListType } from 'types/common'
-import { ChatContainer, Header, InputContainer, MessageBody, MessageContainer, MessageHeader, Root } from './styled'
+import {
+  ChatContainer,
+  Header,
+  InputContainer,
+  MessageBody,
+  MessageContainer,
+  MessageHeader,
+  ReportContentContainer,
+  Root,
+} from './styled'
 
 const { TextArea } = Input
 
@@ -170,41 +179,32 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
         <DislikeOutlined onClick={() => handleReactionClick('👎')} />
       </ReactionContainer> */}
 
-      <Modal
-        title="신고하기"
-        visible={reportVisible}
-        onCancel={() => setReportVisible(false)}
-        footer={[
-          <Button key="cancel" onClick={() => setReportVisible(false)}>
-            취소
-          </Button>,
-          <Button key="confirm" type="primary" onClick={handleSubmitReport}>
-            제출
-          </Button>,
-        ]}
-      >
-        <Typography.Text>신고 유형을 선택하세요:</Typography.Text>
-        <Select
-          options={[
-            { value: 1, label: '스팸' },
-            { value: 2, label: '부적절한 내용' },
-            { value: 3, label: '욕설' },
-            { value: 4, label: '기타' },
-          ]}
-          value={reportType}
-          onChange={(value) => setReportType(value)}
-        />
-        {reportType === 4 && (
-          <TextArea
-            value={reportContent}
-            onChange={(e) => setReportContent(e.target.value)}
-            placeholder="상세 내용을 입력하세요 (30자 이내)"
-            maxLength={30}
+      <Modal title="신고하기" visible={reportVisible} onCancel={() => setReportVisible(false)} footer={null}>
+        <ReportContentContainer>
+          <Typography.Text>신고 유형을 선택하세요:</Typography.Text>
+          <Select
+            options={[
+              { value: 1, label: '스팸' },
+              { value: 2, label: '부적절한 내용' },
+              { value: 3, label: '욕설' },
+              { value: 4, label: '기타' },
+            ]}
+            value={reportType}
+            onChange={(value) => setReportType(value)}
           />
-        )}
-        <Button type={'primary'} danger={true}>
-          신고하기
-        </Button>
+          {reportType === 4 && (
+            <TextArea
+              value={reportContent}
+              onChange={(e) => setReportContent(e.target.value)}
+              placeholder="상세 내용을 입력하세요 (30자 이내)"
+              maxLength={30}
+            />
+          )}
+          <Button type={'primary'}>신고하기</Button>
+          <Button type={'text'} onClick={() => setReportVisible(false)}>
+            취소
+          </Button>
+        </ReportContentContainer>
       </Modal>
     </Root>
   )
