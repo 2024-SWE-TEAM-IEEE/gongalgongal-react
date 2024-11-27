@@ -98,3 +98,12 @@ export const InputField = styled(Input)`
 `
 
 export const ContentSelect = styled(Select)``
+
+export const EmailDuplicateContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const EmailDuplicateTypo = styled(Typography)``

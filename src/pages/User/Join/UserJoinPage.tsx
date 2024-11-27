@@ -1,5 +1,6 @@
-import { message } from 'antd'
+import { Button, message } from 'antd'
 import { getCategories } from 'apis/getCategories'
+import { getEmailDuplicate } from 'apis/getEmailDuplicate'
 import { postUserJoin } from 'apis/postUserJoin'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +9,8 @@ import {
   BannerSubTitleTypo,
   BannerTitleTypo,
   ContentSelect,
+  EmailDuplicateContainer,
+  EmailDuplicateTypo,
   FooterContainer,
   FooterLink,
   InputField,
@@ -25,6 +28,7 @@ type UserJoinPageProps = {
 export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [emailCheck, setEmailCheck] = useState<boolean>(false)
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
   const [categoryList, setCategoryList] = useState<any[]>([])
@@ -35,6 +39,19 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
     setSelectedCategoryList(value)
   }
 
+  const onClickEmailDuplicate = () => {
+    getEmailDuplicate({ email }).then((res) => {
+      if (res) {
+        if (!res.data.is_duplicated) {
+          alert('이메일 중복 확인이 완료되었습니다.')
+          setEmailCheck(true)
+        } else {
+          alert('중복된 이메일입니다.')
+        }
+      }
+    })
+  }
+
   const onSubmit = () => {
     if (name === '') {
       message.error('이름을 입력해주세요.')
@@ -42,6 +59,10 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
     }
     if (email === '') {
       message.error('이메일을 입력해주세요.')
+      return
+    }
+    if (!emailCheck) {
+      message.error('이메일 중복 확인을 완료해주세요.')
       return
     }
     if (password === '') {
@@ -90,7 +111,19 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
             <InputField placeholder="이름" value={name} onChange={(e: any) => setName(e.target.value)} />
           </StyledFormItem>
           <StyledFormItem label="이메일 주소" rules={[{ required: true, message: '이메일 주소를 입력해주세요' }]}>
-            <InputField placeholder="이메일 주소" value={email} onChange={(e: any) => setEmail(e.target.value)} />
+            <InputField
+              placeholder="이메일 주소"
+              value={email}
+              disabled={emailCheck}
+              onChange={(e: any) => setEmail(e.target.value)}
+            />
+            <EmailDuplicateContainer>
+              <Button onClick={onClickEmailDuplicate} disabled={emailCheck}>
+                중복 확인
+              </Button>
+
+              {emailCheck && <EmailDuplicateTypo>이메일 중복 확인이 완료되었습니다.</EmailDuplicateTypo>}
+            </EmailDuplicateContainer>
           </StyledFormItem>
           <StyledFormItem label="비밀번호" rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}>
             <InputField
