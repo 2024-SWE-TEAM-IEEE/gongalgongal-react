@@ -128,10 +128,7 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
   return (
     <Root className={className}>
       <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button
-          onClick={() => navigate(`/tab/group/details/${id}`)}
-          style={{ border: 'none', marginRight: 'auto', padding: 0 }}
-        >
+        <Button onClick={() => navigate(`/tab/home`)} style={{ border: 'none', marginRight: 'auto', padding: 0 }}>
           <ArrowLeftOutlined />
         </Button>
         <Typography.Title level={4} style={{ textAlign: 'center', flexGrow: 1 }}>

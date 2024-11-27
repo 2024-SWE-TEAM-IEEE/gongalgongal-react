@@ -21,7 +21,7 @@ export const GroupCard: FC<GroupCardProps> = ({ className, noticeGroupItem }) =>
   const navigate = useNavigate()
 
   const onClickDetailsPage = () => {
-    navigate('/tab/group/details/1')
+    navigate(`/tab/group/details/${noticeGroupItem.id}`)
   }
 
   return (

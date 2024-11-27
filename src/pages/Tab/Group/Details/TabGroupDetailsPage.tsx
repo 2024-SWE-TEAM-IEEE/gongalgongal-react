@@ -179,13 +179,13 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
             </ContentSectionContainer>
           </ContentContainer>
           <ContentButtonContainer>
-            {noticeGroupItem.participant ? (
-              <ContentButton danger type={'primary'} size={'large'} onClick={onClickLeaveButton}>
-                그룹 탈퇴하기
-              </ContentButton>
-            ) : (
+            {noticeGroupItem.participant === false ? (
               <ContentButton type={'primary'} size={'large'} onClick={onClickJoinButton}>
                 그룹 가입하기
+              </ContentButton>
+            ) : (
+              <ContentButton danger type={'primary'} size={'large'} onClick={onClickLeaveButton}>
+                그룹 탈퇴하기
               </ContentButton>
             )}
           </ContentButtonContainer>
