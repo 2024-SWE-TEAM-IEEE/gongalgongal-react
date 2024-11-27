@@ -1,4 +1,6 @@
+import { deleteNoticeStar } from 'apis/deleteNoticeStar'
 import { deleteNoticeStore } from 'apis/deleteNoticeStore'
+import { postNoticeStar } from 'apis/postNoticeStar'
 import { postNoticeStore } from 'apis/postNoticeStore'
 import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -58,10 +60,12 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
 
   const onClickStarButton = () => {
     if (starred) {
-      deleteNoticeStore({ id: noticeItem.id })
+      deleteNoticeStar({ id: noticeItem.id })
+      setStarred(false)
       return
     }
-    postNoticeStore({ id: noticeItem.id })
+    postNoticeStar({ id: noticeItem.id })
+    setStarred(true)
   }
 
   return (
@@ -89,7 +93,9 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
           <FooterButton type={stored ? 'primary' : 'default'} onClick={onClickStoreButton}>
             {stored ? '보관 중' : '보관'}
           </FooterButton>
-          <FooterButton>중요</FooterButton>
+          <FooterButton type={starred ? 'primary' : 'default'} onClick={onClickStarButton}>
+            {starred ? '중요 표시 중' : '중요 표시'}
+          </FooterButton>
         </FooterButtonContainer>
       </FooterContainer>
     </Root>
