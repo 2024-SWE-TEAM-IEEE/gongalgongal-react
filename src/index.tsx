@@ -3,10 +3,12 @@ import 'antd/dist/reset.css'
 import { MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
 import { MainPage } from 'pages/Main'
 import { NoticeDetailsPage } from 'pages/Notice/Details'
+import { ChatRoom } from 'pages/Tab/ChatRoom'
 import { TabChatPage } from 'pages/Tab/Chat'
 import { TabGroupPage } from 'pages/Tab/Group'
 import { TabGroupCreatePage } from 'pages/Tab/Group/Create'
 import { TabGroupDetailsPage } from 'pages/Tab/Group/Details'
+import { TabGroupManagePage } from 'pages/Tab/Group/Manage'
 import { TabHomePage } from 'pages/Tab/Home'
 import { TabUserInfoPage } from 'pages/Tab/UserInfo'
 import { UserFindPasswordPage } from 'pages/User/FindPassword'
@@ -61,7 +63,9 @@ root.render(
               <Route path="/tab/group" element={<TabGroupPage />} />
               <Route path="/tab/group/create" element={<TabGroupCreatePage />} />
               <Route path="/tab/group/details/:id" element={<TabGroupDetailsPage />} />
+              <Route path="/tab/group/manage/:id" element={<TabGroupManagePage />} />
 
+              <Route path="/tab/chatroom/:id" element={<ChatRoom />} />
               <Route path="/tab/chat" element={<TabChatPage />} />
               <Route path="/tab/user-info" element={<TabUserInfoPage />} />
 
