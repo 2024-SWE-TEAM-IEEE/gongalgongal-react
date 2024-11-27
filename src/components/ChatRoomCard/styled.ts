@@ -22,7 +22,7 @@ export const HeaderContainer = styled.div`
 `
 
 export const HeaderTypo = styled(Typography)`
-  font-size: 22px;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
 `

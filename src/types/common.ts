@@ -38,3 +38,13 @@ export type NoticeGroupItemType = {
 }
 
 export type NoticeGroupListType = NoticeGroupItemType[]
+
+export type ChatRoomItemType = {
+  id: number
+  notice_id: number
+  categories: { id: number; name: string }[]
+  title: string
+  members: { id: number; name: string; email: string }[]
+}
+
+export type ChatRoomListType = ChatRoomItemType[]

@@ -1,4 +1,6 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ChatRoomItemType } from 'types/common'
 import {
   ContentContainer,
   ContentCountTypo,
@@ -10,25 +12,29 @@ import {
   Root,
 } from './styled'
 
-type CharRoomCardProps = {
+type ChatRoomCardProps = {
   className?: string
-  title: string
-  description: string
-  memberCount: number
+  chatRoomItem: ChatRoomItemType
 }
 
-export const CharRoomCard: FC<CharRoomCardProps> = ({ className, title, description, memberCount }) => {
+export const ChatRoomCard: FC<ChatRoomCardProps> = ({ className, chatRoomItem }) => {
+  const navigate = useNavigate()
+
+  const onClickChatRoomButton = () => {
+    navigate(`/tab/chatroom/${chatRoomItem.notice_id}`)
+  }
+
   return (
-    <Root className={className}>
+    <Root className={className} onClick={onClickChatRoomButton}>
       <HeaderContainer>
-        <HeaderTypo>{title}</HeaderTypo>
+        <HeaderTypo>{chatRoomItem.title}</HeaderTypo>
         <HeaderMenuContainer>
           <HeaderMenuIcon />
         </HeaderMenuContainer>
       </HeaderContainer>
       <ContentContainer>
-        <ContentTypo>{description}</ContentTypo>
-        <ContentCountTypo>{memberCount.toLocaleString()} 멤버</ContentCountTypo>
+        <ContentTypo>{chatRoomItem.categories.map((value) => value.name).join(', ')}</ContentTypo>
+        <ContentCountTypo>{chatRoomItem.members.length} 멤버</ContentCountTypo>
       </ContentContainer>
     </Root>
   )

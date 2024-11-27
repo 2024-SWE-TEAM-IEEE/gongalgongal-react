@@ -1,7 +1,9 @@
-import { ChatCard } from 'components/ChatCard'
+import { getChatRooms } from 'apis/getChatRooms'
+import { ChatRoomCard } from 'components/ChatRoomCard'
 import { Header } from 'components/Header'
 import { TabBar } from 'components/TabBar'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { ChatRoomListType } from 'types/common'
 import { ChatRoomCardContainer, FilterContainer, Root } from './styled'
 
 type TabChatPageProps = {
@@ -9,17 +11,24 @@ type TabChatPageProps = {
 }
 
 export const TabChatPage: FC<TabChatPageProps> = ({ className }) => {
+  const [chatRoomList, setChatRoomList] = useState<ChatRoomListType>([])
+
+  useEffect(() => {
+    getChatRooms().then((res) => {
+      if (res) {
+        setChatRoomList(res.data.chatroom)
+      }
+    })
+  }, [])
+
   return (
     <Root className={className}>
       <Header />
       <FilterContainer>채팅방 검색</FilterContainer>
       <ChatRoomCardContainer>
-        <ChatCard title={'학사 공지'} description={'2024학년도 1학기 장학금 신청 안내'} memberCount={1200} />
-        <ChatCard title={'장학금 정보'} description={'겨울방학 단기 해외연수 프로그램 모집'} memberCount={100} />
-        <ChatCard title={'취업 정보'} description={'2023년도 학술제 개최 안내'} memberCount={24} />
-        <ChatCard title={'학사 공지'} description={'2024학년도 1학기 장학금 신청 안내'} memberCount={1200} />
-        <ChatCard title={'장학금 정보'} description={'겨울방학 단기 해외연수 프로그램 모집'} memberCount={100} />
-        <ChatCard title={'취업 정보'} description={'2023년도 학술제 개최 안내'} memberCount={24} />
+        {chatRoomList.map((chatRoomItem) => (
+          <ChatRoomCard chatRoomItem={chatRoomItem} key={`chat_room_item_${chatRoomItem.notice_id}`} />
+        ))}
       </ChatRoomCardContainer>
       <TabBar />
     </Root>

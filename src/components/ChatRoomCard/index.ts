@@ -1,1 +1,1 @@
-export { CharRoomCard } from './ChatRoomCard'
+export { ChatRoomCard } from './ChatRoomCard'
