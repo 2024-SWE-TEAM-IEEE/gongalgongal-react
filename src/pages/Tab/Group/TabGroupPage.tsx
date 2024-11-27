@@ -30,15 +30,10 @@ export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
   return (
     <Root className={className}>
       <Header />
-      <FilterContainer>그룹 검색</FilterContainer>
+      <FilterContainer>참가한 공지 그룹</FilterContainer>
       <GroupCardContainer>
         {noticeGroupList.map((noticeGroupItem) => (
-          <GroupCard
-            title={'학사 공지'}
-            description={'2024학년도 1학기 장학금 신청 안내'}
-            memberCount={1200}
-            key={`notice_group_item_${noticeGroupItem.id}`}
-          />
+          <GroupCard noticeGroupItem={noticeGroupItem} key={`notice_group_item_${noticeGroupItem.id}`} />
         ))}
       </GroupCardContainer>
       <ContentButtonContainer>

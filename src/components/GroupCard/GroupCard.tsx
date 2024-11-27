@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { NoticeGroupItemType } from 'types/common'
 import {
   ContentContainer,
   ContentCountTypo,
@@ -13,12 +14,10 @@ import {
 
 type GroupCardProps = {
   className?: string
-  title: string
-  description: string
-  memberCount: number
+  noticeGroupItem: NoticeGroupItemType
 }
 
-export const GroupCard: FC<GroupCardProps> = ({ className, title, description, memberCount }) => {
+export const GroupCard: FC<GroupCardProps> = ({ className, noticeGroupItem }) => {
   const navigate = useNavigate()
 
   const onClickDetailsPage = () => {
@@ -28,14 +27,14 @@ export const GroupCard: FC<GroupCardProps> = ({ className, title, description, m
   return (
     <Root className={className} onClick={onClickDetailsPage}>
       <HeaderContainer>
-        <HeaderTypo>{title}</HeaderTypo>
+        <HeaderTypo>{noticeGroupItem.name}</HeaderTypo>
         <HeaderMenuContainer>
           <HeaderMenuIcon />
         </HeaderMenuContainer>
       </HeaderContainer>
       <ContentContainer>
-        <ContentTypo>{description}</ContentTypo>
-        <ContentCountTypo>{memberCount.toLocaleString()} 멤버</ContentCountTypo>
+        <ContentTypo>{noticeGroupItem.description}</ContentTypo>
+        <ContentCountTypo>{noticeGroupItem.members?.length} 멤버</ContentCountTypo>
       </ContentContainer>
     </Root>
   )
