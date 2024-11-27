@@ -159,19 +159,19 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
             <ContentSectionContainer>
               <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
               <ContentSectionCategoryChipContainer>
-                {categories.map((categoryItem, index) => (
+                {noticeGroupItem.group_category.map((categoryItem, index) => (
                   <ContentSectionCategoryChip
                     style={{
                       backgroundColor: pastelColorPairs[index % 10].background,
                     }}
-                    key={`category_item_${index}`}
+                    key={`category_item_${categoryItem.id}`}
                   >
                     <ContentSectionCategoryChipTypo
                       style={{
                         color: pastelColorPairs[index % 10].text,
                       }}
                     >
-                      {categoryItem}
+                      {categoryItem.name}
                     </ContentSectionCategoryChipTypo>
                   </ContentSectionCategoryChip>
                 ))}

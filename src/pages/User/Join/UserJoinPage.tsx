@@ -98,6 +98,7 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
 
   return (
     <Root className={className}>
+      ``
       <BannerContainer>
         <BannerTitleTypo>공알공알</BannerTitleTypo>
         <BannerSubTitleTypo>
@@ -156,7 +157,6 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
           </RegisterButton>
         </StyledForm>
       </RegisterContainer>
-
       <FooterContainer>
         <p>
           <FooterLink href="/terms-of-service">이용약관</FooterLink>{' '}
