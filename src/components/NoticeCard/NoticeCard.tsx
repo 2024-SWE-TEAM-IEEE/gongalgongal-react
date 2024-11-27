@@ -1,3 +1,4 @@
+import { StarFilled, StarOutlined } from '@ant-design/icons'
 import { deleteNoticeStar } from 'apis/deleteNoticeStar'
 import { deleteNoticeStore } from 'apis/deleteNoticeStore'
 import { postNoticeStar } from 'apis/postNoticeStar'
@@ -69,7 +70,7 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
   }
 
   return (
-    <Root className={className}>
+    <Root className={className} isStarred={starred}>
       <ContentContainer>
         <ContentIconContainer>
           {iconType === 'DOLLAR' && <ContentIconDollar />}
@@ -93,8 +94,8 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
           <FooterButton type={stored ? 'primary' : 'default'} onClick={onClickStoreButton}>
             {stored ? '보관 중' : '보관'}
           </FooterButton>
-          <FooterButton type={starred ? 'primary' : 'default'} onClick={onClickStarButton}>
-            {starred ? '중요 표시 중' : '중요 표시'}
+          <FooterButton shape={'circle'} type={starred ? 'primary' : 'default'} onClick={onClickStarButton}>
+            {starred ? <StarFilled /> : <StarOutlined />}
           </FooterButton>
         </FooterButtonContainer>
       </FooterContainer>

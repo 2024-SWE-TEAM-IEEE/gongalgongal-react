@@ -3,14 +3,24 @@ import { Button, Typography } from 'antd'
 import { PRIMARY_COLOR } from 'constants/color'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+type RootProps = {
+  isStarred: boolean
+}
+
+export const Root = styled.div<RootProps>`
   width: 100%;
   display: flex;
   flex-direction: column;
   background: white;
   border: 1px #e9e9e9 solid;
-  border-radius: 12px;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  ${(props) =>
+    props.isStarred &&
+    `
+    border: 1px #1677ff solid;
+    box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+  `}
 `
 
 export const ContentContainer = styled.div`
