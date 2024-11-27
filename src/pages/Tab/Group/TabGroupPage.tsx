@@ -1,3 +1,4 @@
+import { Checkbox } from 'antd'
 import { getNoticeGroups } from 'apis/getNoticeGroups'
 import { GroupCard } from 'components/GroupCard'
 import { Header } from 'components/Header'
@@ -14,6 +15,7 @@ type TabGroupPageProps = {
 export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
   const navigate = useNavigate()
   const [noticeGroupList, setNoticeGroupList] = useState<NoticeGroupListType>([])
+  const [isParticipated, setIsParticipated] = useState<boolean>(false)
 
   const onClickCreateButton = () => {
     navigate('/tab/group/create')
@@ -30,7 +32,9 @@ export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
   return (
     <Root className={className}>
       <Header />
-      <FilterContainer>참가한 공지 그룹</FilterContainer>
+      <FilterContainer>
+        <Checkbox checked={isParticipated} onClick={() => setIsParticipated((prev) => !prev)} /> 참가한 공지 그룹
+      </FilterContainer>
       <GroupCardContainer>
         {noticeGroupList.map((noticeGroupItem) => (
           <GroupCard noticeGroupItem={noticeGroupItem} key={`notice_group_item_${noticeGroupItem.id}`} />
