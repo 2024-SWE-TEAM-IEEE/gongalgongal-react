@@ -1,18 +1,11 @@
+import { Checkbox, Typography } from 'antd'
 import { getNotices } from 'apis/getNotices'
 import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
 import { TabBar } from 'components/TabBar'
 import { FC, useEffect, useState } from 'react'
 import { NoticeListType } from 'types/common'
-import {
-  FilterChip,
-  FilterChipButton,
-  FilterChipContainer,
-  FilterChipTypo,
-  FilterContainer,
-  NoticeCardContainer,
-  Root,
-} from './styled'
+import { FilterChipContainer, FilterContainer, NoticeCardContainer, Root } from './styled'
 
 type TabHomePageProps = {
   className?: string
@@ -20,6 +13,18 @@ type TabHomePageProps = {
 
 export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
   const [noticeList, setNoticeList] = useState<NoticeListType>([])
+  const [isStored, setIsStored] = useState<boolean>(false)
+
+  const toggleIsStored = () => {
+    setIsStored((prev) => !prev)
+  }
+
+  const washedNoticeList = (() => {
+    if (isStored) {
+      return noticeList.filter((noticeItem) => noticeItem.stored)
+    }
+    return noticeList
+  })()
 
   useEffect(() => {
     getNotices().then((res) => {
@@ -34,18 +39,15 @@ export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
       <Header />
       <FilterContainer>
         <FilterChipContainer>
-          <FilterChip>
-            <FilterChipTypo>전공 관련 공지</FilterChipTypo>
-          </FilterChip>
-          <FilterChip>
-            <FilterChipTypo>장학금 공지</FilterChipTypo>
-          </FilterChip>
+          <Checkbox checked={isStored} onClick={toggleIsStored} />
+          <Typography>보관 중</Typography>
         </FilterChipContainer>
-        <FilterChipButton>필터 수정</FilterChipButton>
       </FilterContainer>
       <NoticeCardContainer>
-        {noticeList &&
-          noticeList.map((noticeItem) => <NoticeCard noticeItem={noticeItem} key={`notice_item_${noticeItem.id}`} />)}
+        {washedNoticeList &&
+          washedNoticeList.map((noticeItem) => (
+            <NoticeCard noticeItem={noticeItem} key={`notice_item_${noticeItem.id}`} />
+          ))}
       </NoticeCardContainer>
       <TabBar />
     </Root>
