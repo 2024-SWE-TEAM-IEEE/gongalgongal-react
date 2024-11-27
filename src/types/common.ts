@@ -13,3 +13,15 @@ export type NoticeItemType = {
 }
 
 export type NoticeListType = NoticeItemType[]
+
+export type ChatItemType = {
+  id: number
+  author: {
+    id: number
+    name: string
+  }
+  content: string
+  created_at: string
+}
+
+export type ChatListType = ChatItemType[]

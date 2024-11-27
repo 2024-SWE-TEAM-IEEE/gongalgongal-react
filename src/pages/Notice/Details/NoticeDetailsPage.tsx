@@ -1,7 +1,7 @@
 import { getNoticeDetails } from 'apis/getNoticeDetails'
 import { Header } from 'components/Header'
 import { FC, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { NoticeItemType } from 'types/common'
 import {
   ContentButton,
@@ -41,7 +41,12 @@ const categories = ['장학금', '시간표 변경', '시험 일정', '대학원
 
 export const NoticeDetailsPage: FC<NoticeDetailsPageProps> = ({ className }) => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [noticeItem, setNoticeItem] = useState<NoticeItemType>()
+
+  const onClickJoinChatroomButton = () => {
+    navigate(`/tab/chatroom/${id}`)
+  }
 
   useEffect(() => {
     if (id) {
@@ -111,7 +116,7 @@ export const NoticeDetailsPage: FC<NoticeDetailsPageProps> = ({ className }) => 
         </ContentContainer>
       )}
       <ContentButtonContainer>
-        <ContentButton type={'primary'} size={'large'}>
+        <ContentButton type={'primary'} size={'large'} onClick={onClickJoinChatroomButton}>
           대화방 참여
         </ContentButton>
         <ContentButtonCaptionTypo>공지에 대한 정보를 공유하는 대화방입니다!</ContentButtonCaptionTypo>

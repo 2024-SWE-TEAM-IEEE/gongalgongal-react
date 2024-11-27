@@ -1,1 +1,1 @@
-export { ChatRoom } from './ChatRoom'
+export { TabChatRoomPage } from './ChatRoom'

@@ -1,116 +1,102 @@
-import { FC, useEffect, useState } from 'react';
-import axios from 'axios';
-import { Typography, Button, Input, Dropdown, Menu, Modal } from 'antd';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import {
-  MessageOutlined,
-  LikeOutlined,
-  SmileOutlined,
-  FrownOutlined,
+  ArrowLeftOutlined,
   DislikeOutlined,
-  ArrowLeftOutlined
-} from '@ant-design/icons';
+  FrownOutlined,
+  LikeOutlined,
+  MessageOutlined,
+  SmileOutlined,
+} from '@ant-design/icons'
+import { Button, Dropdown, Input, Menu, Modal, Typography } from 'antd'
+import { postChat } from 'apis/postChat'
+import { postChatroomJoin } from 'apis/postChatoomJoin'
+import axios from 'axios'
+import { FC, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ChatListType } from 'types/common'
 import {
-  Root,
-  Header,
   ChatContainer,
+  Header,
+  InputContainer,
+  MessageBody,
   MessageContainer,
   MessageHeader,
-  MessageBody,
   ReactionContainer,
-  InputContainer,
-} from './styled';
+  Root,
+} from './styled'
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 // Props 타입 정의
 type ChatRoomProps = {
-  className?: string;
+  className?: string
 }
-
-// 메시지 타입 정의
-type Message = {
-  author: {
-    name: string;
-  };
-  content: string;
-  created_at: string;
-  id?: number;  // optional ID field
-};
 
 // 채팅방 참여자 타입 정의
 type Member = {
-  name: string;
-};
+  name: string
+}
 
-type ChatDetails = {
-  chats: Message[];
-  members: Member[];  
-};
+export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
+  const [messages, setMessages] = useState<ChatListType>([])
+  const [newMessage, setNewMessage] = useState<string>('')
+  const [reportVisible, setReportVisible] = useState<boolean>(false)
+  const [reportMessageId, setReportMessageId] = useState<number | null>(null)
+  const [reportContent, setReportContent] = useState<string>('')
 
-export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
-  const navigate = useNavigate(); 
-  const { id } = useParams<{ id: string }>(); 
-  const [messages, setMessages] = useState<Message[]>([]); 
-  const [newMessage, setNewMessage] = useState<string>(''); 
-  const [reportVisible, setReportVisible] = useState<boolean>(false); 
-  const [reportMessageId, setReportMessageId] = useState<number | null>(null);
-  const [reportContent, setReportContent] = useState<string>('');
-  
   const fetchMessages = async () => {
     try {
-      const response = await axios.get('API_URL'); // 메세지 api
-      const newMessages: Message[] = response.data.data.chat; 
-      setMessages(prevMessages => [...prevMessages, ...newMessages]);
+      if (id) {
+        const response = await postChatroomJoin({ noticeId: +id })
+        const newMessages = response?.data.chats as ChatListType
+        setMessages((prevMessages) => [...prevMessages, ...newMessages])
+      }
     } catch (error) {
-      console.error('메시지 로드 오류:', error);
+      console.error('메시지 로드 오류:', error)
     }
   }
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      const newMsg: Message = {
-        author: { name: "이름" }, // 실제 사용자 이름 할당
-        content: newMessage,
-        created_at: new Date().toISOString(),
+    if (id) {
+      if (newMessage.trim()) {
+        postChat({ noticeId: +id, content: newMessage })
+        setNewMessage('')
       }
-      
-      setMessages((prevMessages) => [...prevMessages, { ...newMsg, id: prevMessages.length + 1 }]);
-      setNewMessage('');
     }
   }
 
   const handleReactionClick = (reaction: string) => {
-    setNewMessage(prev => prev + reaction); 
+    setNewMessage((prev) => prev + reaction)
   }
 
   const handleReportMessage = (messageId: number) => {
-    setReportMessageId(messageId);
-    setReportVisible(true);
+    setReportMessageId(messageId)
+    setReportVisible(true)
   }
 
   const handleSubmitReport = async () => {
     if (reportContent.trim() && reportMessageId !== null) {
       try {
-        const response = await axios.post('YOUR_REPORT_API', {// 신고 api
+        const response = await axios.post('YOUR_REPORT_API', {
+          // 신고 api
           messageId: reportMessageId,
           content: reportContent,
-        });
+        })
 
         // 성공 메시지 표시
         Modal.success({
           content: response.data.message,
-        });
+        })
       } catch (error) {
-        console.error('신고 오류:', error);
+        console.error('신고 오류:', error)
         Modal.error({
           content: '신고하는 중 오류가 발생했습니다.',
-        });
+        })
       } finally {
-        setReportVisible(false);
-        setReportContent('');
-        setReportMessageId(null);
+        setReportVisible(false)
+        setReportContent('')
+        setReportMessageId(null)
       }
     }
   }
@@ -127,38 +113,44 @@ export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
         <a onClick={() => console.log('채팅방 나가기')}>채팅방 나가기</a>
       </Menu.Item>
     </Menu>
-  );
+  )
 
   useEffect(() => {
-    fetchMessages();
+    fetchMessages()
 
     const interval = setInterval(() => {
-      fetchMessages();
-    }, 7000);
+      fetchMessages()
+    }, 7000)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <Root className={className}>
       <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button 
-          onClick={() => navigate(`/tab/group/details/${id}`)} 
-          style={{ border: 'none', marginRight: 'auto', padding: 0 }}>
-          <ArrowLeftOutlined /> 
+        <Button
+          onClick={() => navigate(`/tab/group/details/${id}`)}
+          style={{ border: 'none', marginRight: 'auto', padding: 0 }}
+        >
+          <ArrowLeftOutlined />
         </Button>
-        <Typography.Title level={4} style={{ textAlign: 'center', flexGrow: 1 }}>대화방</Typography.Title>
+        <Typography.Title level={4} style={{ textAlign: 'center', flexGrow: 1 }}>
+          대화방
+        </Typography.Title>
         <Dropdown overlay={menu} trigger={['click']}>
           <Button icon={<MessageOutlined />} />
         </Dropdown>
       </Header>
       <ChatContainer>
         {messages.map((msg, index) => (
-          <MessageContainer key={index} style={{
-            alignSelf: msg.author.name === "이름" ? 'flex-end' : 'flex-start',
-            width: msg.author.name === "이름" ? 'calc(33.33% - 16px)' : 'calc(66.67% - 16px)',
-            marginLeft: msg.author.name === "이름" ? 'auto' : '0',
-          }}>
+          <MessageContainer
+            key={index}
+            style={{
+              alignSelf: msg.author.name === '이름' ? 'flex-end' : 'flex-start',
+              width: msg.author.name === '이름' ? 'calc(33.33% - 16px)' : 'calc(66.67% - 16px)',
+              marginLeft: msg.author.name === '이름' ? 'auto' : '0',
+            }}
+          >
             <MessageHeader>
               <Typography.Text strong>{msg.author.name}</Typography.Text>
               <Typography.Text type="secondary">
@@ -167,7 +159,9 @@ export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
             </MessageHeader>
             <MessageBody>
               <Typography.Text>{msg.content}</Typography.Text>
-              <Button type="link" onClick={() => handleReportMessage(index)} style={{ float: 'right' }}>신고</Button>
+              <Button type="link" onClick={() => handleReportMessage(index)} style={{ float: 'right' }}>
+                신고
+              </Button>
             </MessageBody>
           </MessageContainer>
         ))}
@@ -177,11 +171,11 @@ export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onPressEnter={(e) => {
-            e.preventDefault(); 
-            handleSendMessage();
+            e.preventDefault()
+            handleSendMessage()
           }}
           placeholder="메시지를 입력하세요..."
-          autoSize={{ minRows: 1, maxRows: 4 }} 
+          autoSize={{ minRows: 1, maxRows: 4 }}
         />
         <Button type="primary" onClick={handleSendMessage}>
           전송
@@ -204,7 +198,7 @@ export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
           </Button>,
           <Button key="confirm" type="primary" onClick={handleSubmitReport}>
             제출
-          </Button>
+          </Button>,
         ]}
       >
         <Typography.Text>신고 유형을 선택하세요:</Typography.Text>
@@ -219,7 +213,6 @@ export const ChatRoom: FC<ChatRoomProps> = ({ className }) => {
           maxLength={30}
         />
       </Modal>
-      
     </Root>
-  );
+  )
 }
