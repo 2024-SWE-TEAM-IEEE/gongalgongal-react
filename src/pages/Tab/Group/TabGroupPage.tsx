@@ -21,6 +21,13 @@ export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
     navigate('/tab/group/create')
   }
 
+  const washedNoticeGroupList = (() => {
+    if (isParticipated) {
+      return noticeGroupList.filter((noticeGroupItem) => noticeGroupItem.participant)
+    }
+    return noticeGroupList
+  })()
+
   useEffect(() => {
     getNoticeGroups().then((res) => {
       if (res) {
@@ -36,9 +43,10 @@ export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
         <Checkbox checked={isParticipated} onClick={() => setIsParticipated((prev) => !prev)} /> 참가한 공지 그룹
       </FilterContainer>
       <GroupCardContainer>
-        {noticeGroupList.map((noticeGroupItem) => (
-          <GroupCard noticeGroupItem={noticeGroupItem} key={`notice_group_item_${noticeGroupItem.id}`} />
-        ))}
+        {washedNoticeGroupList &&
+          washedNoticeGroupList.map((noticeGroupItem) => (
+            <GroupCard noticeGroupItem={noticeGroupItem} key={`notice_group_item_${noticeGroupItem.id}`} />
+          ))}
       </GroupCardContainer>
       <ContentButtonContainer>
         <ContentButton type={'primary'} size={'large'} onClick={onClickCreateButton}>

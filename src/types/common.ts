@@ -35,6 +35,7 @@ export type NoticeGroupItemType = {
   description: string
   share_url: string
   members: { id: number; name: string }[]
+  participant: boolean
 }
 
 export type NoticeGroupListType = NoticeGroupItemType[]
