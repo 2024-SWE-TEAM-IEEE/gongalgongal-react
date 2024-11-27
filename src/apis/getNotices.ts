@@ -1,15 +1,8 @@
+import { NoticeListType } from 'types/common'
 import { commonAxios, CommonResponseType } from './common'
 
 type Type = {
-  notices: {
-    author: string
-    categories: { id: number; name: string }[]
-    id: number
-    noticed_date: string
-    starred: boolean
-    stored: boolean
-    title: string
-  }[]
+  notices: NoticeListType
 }
 
 export const getNotices = async () => {

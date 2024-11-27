@@ -1,5 +1,8 @@
+import { getNoticeDetails } from 'apis/getNoticeDetails'
 import { Header } from 'components/Header'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { NoticeItemType } from 'types/common'
 import {
   ContentButton,
   ContentButtonCaptionTypo,
@@ -37,70 +40,76 @@ const pastelColorPairs = [
 const categories = ['장학금', '시간표 변경', '시험 일정', '대학원 진학', '취업 정보', '교환학생']
 
 export const NoticeDetailsPage: FC<NoticeDetailsPageProps> = ({ className }) => {
+  const { id } = useParams()
+  const [noticeItem, setNoticeItem] = useState<NoticeItemType>()
+
+  useEffect(() => {
+    if (id) {
+      getNoticeDetails({ id: +id }).then((res) => {
+        if (res) {
+          setNoticeItem(res.data)
+        }
+      })
+    }
+  }, [])
+
   return (
     <Root className={className}>
       <Header title="공지 상세" type="SUB" />
-      <ContentContainer>
-        <ContentTitleTypo>공지 상세 정보</ContentTitleTypo>
-        <ContentSectionContainer>
-          <ContentSectionTitleTypo>공지 제목</ContentSectionTitleTypo>
-          <ContentSectionContentContainer>
-            <ContentSectionContentTypo>장학금 신청 마감 안내</ContentSectionContentTypo>
-          </ContentSectionContentContainer>
-        </ContentSectionContainer>
-        <ContentSectionContainer>
-          <ContentSectionTitleTypo>공지 내용</ContentSectionTitleTypo>
-          <ContentSectionContentContainer>
-            <ContentSectionContentTypo>
-              동국대학교 컴퓨터공학과, AI융합학부, 또는 관련 전공 및 복수전공을 희망하는 분들을 위한 공지 그룹입니다. 각
-              학부의 공지를 자동으로 수집해 매일 중요한 정보만 선별하여 제공해드립니다.
-            </ContentSectionContentTypo>
-          </ContentSectionContentContainer>
-        </ContentSectionContainer>
-        <ContentSectionContainer>
-          <ContentSectionTitleTypo>공지 날짜</ContentSectionTitleTypo>
-          <ContentSectionContentContainer>
-            <ContentSectionCaptionTypo>2024.11.05</ContentSectionCaptionTypo>
-          </ContentSectionContentContainer>
-        </ContentSectionContainer>
-        <ContentSectionContainer>
-          <ContentSectionTitleTypo>공지 링크</ContentSectionTitleTypo>
-          <ContentSectionContentContainer>
-            <a
-              href={'https://www.dongguk.edu/article/GENERALNOTICES/detail/26757910'}
-              target={'_blank'}
-              rel="noreferrer"
-            >
-              <ContentSectionCaptionTypo>
-                https://www.dongguk.edu/article/GENERALNOTICES/detail/26757910
-              </ContentSectionCaptionTypo>
-            </a>
-          </ContentSectionContentContainer>
-        </ContentSectionContainer>
-        <ContentSectionContainer>
-          <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
-          <ContentSectionContentContainer>
-            <ContentSectionCategoryChipContainer>
-              {categories.map((categoryItem, index) => (
-                <ContentSectionCategoryChip
-                  style={{
-                    backgroundColor: pastelColorPairs[index % 10].background,
-                  }}
-                  key={`category_item_${index}`}
-                >
-                  <ContentSectionCategoryChipTypo
+      {noticeItem && (
+        <ContentContainer>
+          <ContentTitleTypo>공지 상세 정보</ContentTitleTypo>
+          <ContentSectionContainer>
+            <ContentSectionTitleTypo>공지 제목</ContentSectionTitleTypo>
+            <ContentSectionContentContainer>
+              <ContentSectionContentTypo>{noticeItem.title}</ContentSectionContentTypo>
+            </ContentSectionContentContainer>
+          </ContentSectionContainer>
+          <ContentSectionContainer>
+            <ContentSectionTitleTypo>공지 내용</ContentSectionTitleTypo>
+            <ContentSectionContentContainer>
+              <ContentSectionContentTypo>{noticeItem.content}</ContentSectionContentTypo>
+            </ContentSectionContentContainer>
+          </ContentSectionContainer>
+          <ContentSectionContainer>
+            <ContentSectionTitleTypo>공지 날짜</ContentSectionTitleTypo>
+            <ContentSectionContentContainer>
+              <ContentSectionCaptionTypo>2024.11.05</ContentSectionCaptionTypo>
+            </ContentSectionContentContainer>
+          </ContentSectionContainer>
+          <ContentSectionContainer>
+            <ContentSectionTitleTypo>공지 링크</ContentSectionTitleTypo>
+            <ContentSectionContentContainer>
+              <a href={noticeItem.url} target={'_blank'} rel="noreferrer">
+                <ContentSectionCaptionTypo>{noticeItem.url}</ContentSectionCaptionTypo>
+              </a>
+            </ContentSectionContentContainer>
+          </ContentSectionContainer>
+          <ContentSectionContainer>
+            <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
+            <ContentSectionContentContainer>
+              <ContentSectionCategoryChipContainer>
+                {noticeItem.categories.map((categoryItem, index) => (
+                  <ContentSectionCategoryChip
                     style={{
-                      color: pastelColorPairs[index % 10].text,
+                      backgroundColor: pastelColorPairs[index % 10].background,
                     }}
+                    key={`category_item_${index}`}
                   >
-                    {categoryItem}
-                  </ContentSectionCategoryChipTypo>
-                </ContentSectionCategoryChip>
-              ))}
-            </ContentSectionCategoryChipContainer>
-          </ContentSectionContentContainer>
-        </ContentSectionContainer>
-      </ContentContainer>
+                    <ContentSectionCategoryChipTypo
+                      style={{
+                        color: pastelColorPairs[index % 10].text,
+                      }}
+                    >
+                      {categoryItem.name}
+                    </ContentSectionCategoryChipTypo>
+                  </ContentSectionCategoryChip>
+                ))}
+              </ContentSectionCategoryChipContainer>
+            </ContentSectionContentContainer>
+          </ContentSectionContainer>
+        </ContentContainer>
+      )}
       <ContentButtonContainer>
         <ContentButton type={'primary'} size={'large'}>
           대화방 참여

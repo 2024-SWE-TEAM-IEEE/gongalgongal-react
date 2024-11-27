@@ -3,7 +3,7 @@ import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
 import { TabBar } from 'components/TabBar'
 import { FC, useEffect, useState } from 'react'
-import { NoticeCardIconType } from 'types/common'
+import { NoticeCardIconType, NoticeListType } from 'types/common'
 import { formatDate } from 'utils/formatDate'
 import {
   FilterChip,
@@ -18,18 +18,6 @@ import {
 type TabHomePageProps = {
   className?: string
 }
-
-type NoticeItemType = {
-  author: string
-  categories: { id: number; name: string }[]
-  id: number
-  noticed_date: string
-  starred: boolean
-  stored: boolean
-  title: string
-}
-
-type NoticeListType = NoticeItemType[]
 
 export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
   const [noticeList, setNoticeList] = useState<NoticeListType>([])
