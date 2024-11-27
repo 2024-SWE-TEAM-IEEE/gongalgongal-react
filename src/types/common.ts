@@ -25,3 +25,16 @@ export type ChatItemType = {
 }
 
 export type ChatListType = ChatItemType[]
+
+export type NoticeGroupItemType = {
+  id: number
+  name: string
+  admin_id: number // 그룹장 id
+  site_url: string
+  group_category: { id: number; name: string }[]
+  description: string
+  share_url: string
+  members: { id: number; name: string }[]
+}
+
+export type NoticeGroupListType = NoticeGroupItemType[]

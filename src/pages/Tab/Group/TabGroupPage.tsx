@@ -1,8 +1,10 @@
+import { getNoticeGroups } from 'apis/getNoticeGroups'
 import { GroupCard } from 'components/GroupCard'
 import { Header } from 'components/Header'
 import { TabBar } from 'components/TabBar'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { NoticeGroupListType } from 'types/common'
 import { ContentButton, ContentButtonContainer, FilterContainer, GroupCardContainer, Root } from './styled'
 
 type TabGroupPageProps = {
@@ -11,22 +13,33 @@ type TabGroupPageProps = {
 
 export const TabGroupPage: FC<TabGroupPageProps> = ({ className }) => {
   const navigate = useNavigate()
+  const [noticeGroupList, setNoticeGroupList] = useState<NoticeGroupListType>([])
 
   const onClickCreateButton = () => {
     navigate('/tab/group/create')
   }
+
+  useEffect(() => {
+    getNoticeGroups().then((res) => {
+      if (res) {
+        setNoticeGroupList(res.data.groups)
+      }
+    })
+  }, [])
 
   return (
     <Root className={className}>
       <Header />
       <FilterContainer>그룹 검색</FilterContainer>
       <GroupCardContainer>
-        <GroupCard title={'학사 공지'} description={'2024학년도 1학기 장학금 신청 안내'} memberCount={1200} />
-        <GroupCard title={'장학금 정보'} description={'겨울방학 단기 해외연수 프로그램 모집'} memberCount={100} />
-        <GroupCard title={'취업 정보'} description={'2023년도 학술제 개최 안내'} memberCount={24} />
-        <GroupCard title={'학사 공지'} description={'2024학년도 1학기 장학금 신청 안내'} memberCount={1200} />
-        <GroupCard title={'장학금 정보'} description={'겨울방학 단기 해외연수 프로그램 모집'} memberCount={100} />
-        <GroupCard title={'취업 정보'} description={'2023년도 학술제 개최 안내'} memberCount={24} />
+        {noticeGroupList.map((noticeGroupItem) => (
+          <GroupCard
+            title={'학사 공지'}
+            description={'2024학년도 1학기 장학금 신청 안내'}
+            memberCount={1200}
+            key={`notice_group_item_${noticeGroupItem.id}`}
+          />
+        ))}
       </GroupCardContainer>
       <ContentButtonContainer>
         <ContentButton type={'primary'} size={'large'} onClick={onClickCreateButton}>
