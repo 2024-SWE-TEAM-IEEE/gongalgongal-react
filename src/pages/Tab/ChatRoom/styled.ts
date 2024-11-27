@@ -24,7 +24,7 @@ export const Header = styled.div`
 
 export const ChatContainer = styled.div`
   margin: 20px 0;
-  max-height: 400px; /* 최대 높이 설정 */
+  height: calc(100% - 100px);
   overflow-y: auto; /* 스크롤 가능 */
 `
 
@@ -52,6 +52,7 @@ export const ReactionContainer = styled.div`
 `
 
 export const InputContainer = styled.div`
+  width: 100%;
   display: flex;
   gap: 10px; /* 입력 필드와 버튼 사이의 간격 */
 `

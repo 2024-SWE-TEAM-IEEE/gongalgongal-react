@@ -1,28 +1,12 @@
-import {
-  ArrowLeftOutlined,
-  DislikeOutlined,
-  FrownOutlined,
-  LikeOutlined,
-  MessageOutlined,
-  SmileOutlined,
-} from '@ant-design/icons'
-import { Button, Dropdown, Input, Menu, Modal, Typography } from 'antd'
+import { ArrowLeftOutlined, MessageOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Input, Menu, Modal, Select, Typography } from 'antd'
 import { postChat } from 'apis/postChat'
 import { postChatroomJoin } from 'apis/postChatoomJoin'
 import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChatListType } from 'types/common'
-import {
-  ChatContainer,
-  Header,
-  InputContainer,
-  MessageBody,
-  MessageContainer,
-  MessageHeader,
-  ReactionContainer,
-  Root,
-} from './styled'
+import { ChatContainer, Header, InputContainer, MessageBody, MessageContainer, MessageHeader, Root } from './styled'
 
 const { TextArea } = Input
 
@@ -44,13 +28,14 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
   const [reportVisible, setReportVisible] = useState<boolean>(false)
   const [reportMessageId, setReportMessageId] = useState<number | null>(null)
   const [reportContent, setReportContent] = useState<string>('')
+  const [reportType, setReportType] = useState()
 
   const fetchMessages = async () => {
     try {
       if (id) {
         const response = await postChatroomJoin({ noticeId: +id })
         const newMessages = response?.data.chats as ChatListType
-        setMessages((prevMessages) => [...prevMessages, ...newMessages])
+        setMessages((prevMessages) => [...newMessages])
       }
     } catch (error) {
       console.error('메시지 로드 오류:', error)
@@ -178,12 +163,12 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
           전송
         </Button>
       </InputContainer>
-      <ReactionContainer>
+      {/* <ReactionContainer>
         <LikeOutlined onClick={() => handleReactionClick('👍')} />
         <SmileOutlined onClick={() => handleReactionClick('😊')} />
         <FrownOutlined onClick={() => handleReactionClick('😞')} />
         <DislikeOutlined onClick={() => handleReactionClick('👎')} />
-      </ReactionContainer>
+      </ReactionContainer> */}
 
       <Modal
         title="신고하기"
@@ -199,16 +184,27 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
         ]}
       >
         <Typography.Text>신고 유형을 선택하세요:</Typography.Text>
-        <Button>스팸</Button>
-        <Button>부적절한 내용</Button>
-        <Button>욕설</Button>
-        <Button>기타</Button>
-        <TextArea
-          value={reportContent}
-          onChange={(e) => setReportContent(e.target.value)}
-          placeholder="상세 내용을 입력하세요 (30자 이내)"
-          maxLength={30}
+        <Select
+          options={[
+            { value: 1, label: '스팸' },
+            { value: 2, label: '부적절한 내용' },
+            { value: 3, label: '욕설' },
+            { value: 4, label: '기타' },
+          ]}
+          value={reportType}
+          onChange={(value) => setReportType(value)}
         />
+        {reportType === 4 && (
+          <TextArea
+            value={reportContent}
+            onChange={(e) => setReportContent(e.target.value)}
+            placeholder="상세 내용을 입력하세요 (30자 이내)"
+            maxLength={30}
+          />
+        )}
+        <Button type={'primary'} danger={true}>
+          신고하기
+        </Button>
       </Modal>
     </Root>
   )
