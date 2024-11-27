@@ -14,7 +14,7 @@ type Type = {
 }
 
 export const postNoticeGroup = async (props: Props) => {
-  return await commonAxios('POST')('notice-groups/', props, true).then((res) => {
+  return await commonAxios('POST')('notice-groups', props, true).then((res) => {
     if (res) {
       return res.data as CommonResponseType<Type>
     }
