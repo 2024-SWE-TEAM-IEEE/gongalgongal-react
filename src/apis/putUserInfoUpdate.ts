@@ -10,7 +10,7 @@ type Props = {
 type Type = {}
 
 export const putUserInfoUpdate = async (props: Props) => {
-  return await commonAxios('PUT')('user/update-info', props).then((res) => {
+  return await commonAxios('PUT')('user/update', props, true).then((res) => {
     if (res) {
       return res.data as CommonResponseType<Type>
     }
