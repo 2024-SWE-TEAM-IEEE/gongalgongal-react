@@ -2,14 +2,14 @@ import { commonAxios, CommonResponseType } from './common'
 
 type Type = {
   notices: {
-    id: number
-    title: string
-    categories: { id: string; name: string }[]
     author: string
+    categories: { id: number; name: string }[]
+    id: number
     noticed_date: string
-    is_stored: boolean
-    is_starred: boolean
-  }
+    starred: boolean
+    stored: boolean
+    title: string
+  }[]
 }
 
 export const getNotices = async () => {

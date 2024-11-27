@@ -21,6 +21,7 @@ import {
 
 type NoticeCardProps = {
   className?: string
+  id: number
   title: string
   author: string
   date: string
@@ -28,11 +29,11 @@ type NoticeCardProps = {
   iconType: NoticeCardIconType
 }
 
-export const NoticeCard: FC<NoticeCardProps> = ({ className, iconType, title, author, date, description }) => {
+export const NoticeCard: FC<NoticeCardProps> = ({ className, id, iconType, title, author, date, description }) => {
   const navigate = useNavigate()
 
   const onClickDetailsButton = () => {
-    navigate('/notice/details/1')
+    navigate(`/notice/details/${id}`)
   }
 
   return (
