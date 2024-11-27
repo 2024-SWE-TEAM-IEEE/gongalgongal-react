@@ -2,6 +2,7 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { getNoticeGroups } from 'apis/getNoticeGroups'
 import { postNoticeGroupJoin } from 'apis/postNoticeGroupJoin'
+import { postNoticeGroupLeave } from 'apis/postNoticeGroupLeave'
 import { Header } from 'components/Header'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -90,6 +91,27 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
     }
   }
 
+  const onClickLeaveButton = () => {
+    if (id) {
+      postNoticeGroupLeave({ group_id: +id })
+        .then((res) => {
+          if (res) {
+            if (res.status.type === 'success') {
+              alert('그룹 탈퇴에 성공하였습니다.')
+              navigate('/tab/group', { replace: true })
+            } else {
+              alert(res.status.message)
+            }
+          }
+        })
+        .catch((res) => {
+          if (res) {
+            alert('이미 참가한 공지 그룹입니다.')
+          }
+        })
+    }
+  }
+
   useEffect(() => {
     getNoticeGroups().then((res) => {
       if (res) {
@@ -108,59 +130,67 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
     <Root className={className}>
       <Header type={'SUB'} title={'공지 그룹 상세'} />
       {noticeGroupItem && (
-        <ContentContainer>
-          <ContentTitleTypo>기본 정보</ContentTitleTypo>
-          <ContentSectionContainer>
-            <ContentSectionTitleTypo>공지 그룹 명</ContentSectionTitleTypo>
-            <ContentSectionContentTypo>{noticeGroupItem.name}</ContentSectionContentTypo>
-          </ContentSectionContainer>
-          <ContentSectionContainer>
-            <ContentSectionTitleTypo>공지 그룹 상세 설명</ContentSectionTitleTypo>
-            <ContentSectionContentTypo>{noticeGroupItem.description}</ContentSectionContentTypo>
-          </ContentSectionContainer>
-          <ContentSectionContainer>
-            <ContentSectionTitleTypo>그룹장</ContentSectionTitleTypo>
-            <ContentSectionContentContainer>
-              <Avatar size={20} icon={<UserOutlined />} style={{ marginLeft: 2 }} />
-              <ContentSectionContentTypo>아마추어그래머</ContentSectionContentTypo>
-            </ContentSectionContentContainer>
-          </ContentSectionContainer>
-          <ContentSectionContainer>
-            <ContentSectionTitleTypo>크롤링 출처 사이트</ContentSectionTitleTypo>
-            <ContentSectionSiteContainer>
-              <ContentSectionSiteWrapper>
-                <ContentSectionSiteTypo>{noticeGroupItem.site_url}</ContentSectionSiteTypo>
-              </ContentSectionSiteWrapper>
-            </ContentSectionSiteContainer>
-          </ContentSectionContainer>
-          <ContentSectionContainer>
-            <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
-            <ContentSectionCategoryChipContainer>
-              {categories.map((categoryItem, index) => (
-                <ContentSectionCategoryChip
-                  style={{
-                    backgroundColor: pastelColorPairs[index % 10].background,
-                  }}
-                  key={`category_item_${index}`}
-                >
-                  <ContentSectionCategoryChipTypo
+        <>
+          <ContentContainer>
+            <ContentTitleTypo>기본 정보</ContentTitleTypo>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>공지 그룹 명</ContentSectionTitleTypo>
+              <ContentSectionContentTypo>{noticeGroupItem.name}</ContentSectionContentTypo>
+            </ContentSectionContainer>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>공지 그룹 상세 설명</ContentSectionTitleTypo>
+              <ContentSectionContentTypo>{noticeGroupItem.description}</ContentSectionContentTypo>
+            </ContentSectionContainer>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>그룹장</ContentSectionTitleTypo>
+              <ContentSectionContentContainer>
+                <Avatar size={20} icon={<UserOutlined />} style={{ marginLeft: 2 }} />
+                <ContentSectionContentTypo>아마추어그래머</ContentSectionContentTypo>
+              </ContentSectionContentContainer>
+            </ContentSectionContainer>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>크롤링 출처 사이트</ContentSectionTitleTypo>
+              <ContentSectionSiteContainer>
+                <ContentSectionSiteWrapper>
+                  <ContentSectionSiteTypo>{noticeGroupItem.site_url}</ContentSectionSiteTypo>
+                </ContentSectionSiteWrapper>
+              </ContentSectionSiteContainer>
+            </ContentSectionContainer>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>카테고리</ContentSectionTitleTypo>
+              <ContentSectionCategoryChipContainer>
+                {categories.map((categoryItem, index) => (
+                  <ContentSectionCategoryChip
                     style={{
-                      color: pastelColorPairs[index % 10].text,
+                      backgroundColor: pastelColorPairs[index % 10].background,
                     }}
+                    key={`category_item_${index}`}
                   >
-                    {categoryItem}
-                  </ContentSectionCategoryChipTypo>
-                </ContentSectionCategoryChip>
-              ))}
-            </ContentSectionCategoryChipContainer>
-          </ContentSectionContainer>
-        </ContentContainer>
+                    <ContentSectionCategoryChipTypo
+                      style={{
+                        color: pastelColorPairs[index % 10].text,
+                      }}
+                    >
+                      {categoryItem}
+                    </ContentSectionCategoryChipTypo>
+                  </ContentSectionCategoryChip>
+                ))}
+              </ContentSectionCategoryChipContainer>
+            </ContentSectionContainer>
+          </ContentContainer>
+          <ContentButtonContainer>
+            {noticeGroupItem.participant ? (
+              <ContentButton danger type={'primary'} size={'large'} onClick={onClickLeaveButton}>
+                그룹 탈퇴하기
+              </ContentButton>
+            ) : (
+              <ContentButton type={'primary'} size={'large'} onClick={onClickJoinButton}>
+                그룹 가입하기
+              </ContentButton>
+            )}
+          </ContentButtonContainer>
+        </>
       )}
-      <ContentButtonContainer>
-        <ContentButton type={'primary'} size={'large'} onClick={onClickJoinButton}>
-          그룹 가입하기
-        </ContentButton>
-      </ContentButtonContainer>
     </Root>
   )
 }
