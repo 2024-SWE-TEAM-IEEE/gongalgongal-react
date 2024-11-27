@@ -3,8 +3,7 @@ import { Header } from 'components/Header'
 import { NoticeCard } from 'components/NoticeCard'
 import { TabBar } from 'components/TabBar'
 import { FC, useEffect, useState } from 'react'
-import { NoticeCardIconType, NoticeListType } from 'types/common'
-import { formatDate } from 'utils/formatDate'
+import { NoticeListType } from 'types/common'
 import {
   FilterChip,
   FilterChipButton,
@@ -21,16 +20,6 @@ type TabHomePageProps = {
 
 export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
   const [noticeList, setNoticeList] = useState<NoticeListType>([])
-
-  const getIconType = (title: string): NoticeCardIconType => {
-    if (title.indexOf('장학') !== -1) {
-      return 'DOLLAR'
-    }
-    if (title.indexOf('수상') !== -1) {
-      return 'AWARD'
-    }
-    return 'BOOK'
-  }
 
   useEffect(() => {
     getNotices().then((res) => {
@@ -56,17 +45,7 @@ export const TabHomePage: FC<TabHomePageProps> = ({ className }) => {
       </FilterContainer>
       <NoticeCardContainer>
         {noticeList &&
-          noticeList.map((noticeItem) => (
-            <NoticeCard
-              id={noticeItem.id}
-              title={noticeItem.title}
-              author={noticeItem.author}
-              description={noticeItem.title}
-              date={formatDate(noticeItem.noticed_date)}
-              iconType={getIconType(noticeItem.title)}
-              key={`notice_item_${noticeItem.id}`}
-            />
-          ))}
+          noticeList.map((noticeItem) => <NoticeCard noticeItem={noticeItem} key={`notice_item_${noticeItem.id}`} />)}
       </NoticeCardContainer>
       <TabBar />
     </Root>

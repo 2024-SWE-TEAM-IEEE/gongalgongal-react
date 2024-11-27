@@ -1,6 +1,9 @@
-import { FC } from 'react'
+import { deleteNoticeStore } from 'apis/deleteNoticeStore'
+import { postNoticeStore } from 'apis/postNoticeStore'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { NoticeCardIconType } from 'types/common'
+import { NoticeCardIconType, NoticeItemType } from 'types/common'
+import { formatDate } from 'utils/formatDate'
 import {
   ContentContainer,
   ContentDivider,
@@ -21,19 +24,44 @@ import {
 
 type NoticeCardProps = {
   className?: string
-  id: number
-  title: string
-  author: string
-  date: string
-  description: string
-  iconType: NoticeCardIconType
+  noticeItem: NoticeItemType
 }
 
-export const NoticeCard: FC<NoticeCardProps> = ({ className, id, iconType, title, author, date, description }) => {
+export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
   const navigate = useNavigate()
+  const [stored, setStored] = useState<boolean>(noticeItem.stored)
+  const [starred, setStarred] = useState<boolean>(noticeItem.starred)
+
+  const iconType = ((): NoticeCardIconType => {
+    if (noticeItem.title.indexOf('장학') !== -1) {
+      return 'DOLLAR'
+    }
+    if (noticeItem.title.indexOf('수상') !== -1) {
+      return 'AWARD'
+    }
+    return 'BOOK'
+  })()
 
   const onClickDetailsButton = () => {
-    navigate(`/notice/details/${id}`)
+    navigate(`/notice/details/${noticeItem.id}`)
+  }
+
+  const onClickStoreButton = () => {
+    if (stored) {
+      deleteNoticeStore({ id: noticeItem.id })
+      setStored(false)
+      return
+    }
+    postNoticeStore({ id: noticeItem.id })
+    setStored(true)
+  }
+
+  const onClickStarButton = () => {
+    if (starred) {
+      deleteNoticeStore({ id: noticeItem.id })
+      return
+    }
+    postNoticeStore({ id: noticeItem.id })
   }
 
   return (
@@ -45,11 +73,11 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, id, iconType, title
           {iconType === 'AWARD' && <ContentIconAward />}
         </ContentIconContainer>
         <ContentInfoContainer>
-          <ContentInfoTitleTypo>{title}</ContentInfoTitleTypo>
+          <ContentInfoTitleTypo>{noticeItem.title}</ContentInfoTitleTypo>
           <ContentInfoCaptionTypo>
-            {author} • {date}
+            {noticeItem.author} • {formatDate(noticeItem.noticed_date)}
           </ContentInfoCaptionTypo>
-          <ContentInfoContentTypo>{description}</ContentInfoContentTypo>
+          <ContentInfoContentTypo>{noticeItem.content}</ContentInfoContentTypo>
         </ContentInfoContainer>
       </ContentContainer>
       <ContentDivider />
@@ -58,7 +86,9 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, id, iconType, title
           자세히 보기
         </FooterDetailsButton>
         <FooterButtonContainer>
-          <FooterButton>보관</FooterButton>
+          <FooterButton type={stored ? 'primary' : 'default'} onClick={onClickStoreButton}>
+            {stored ? '보관 중' : '보관'}
+          </FooterButton>
           <FooterButton>중요</FooterButton>
         </FooterButtonContainer>
       </FooterContainer>

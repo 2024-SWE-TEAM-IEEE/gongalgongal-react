@@ -1,7 +1,6 @@
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { Header } from 'components/Header'
-import { NoticeCard } from 'components/NoticeCard'
 import { FC } from 'react'
 import {
   ContentButton,
@@ -128,7 +127,7 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
       <ContentContainer>
         <ContentTitleTypo>공지 정보</ContentTitleTypo>
         <ContentNoticeCardContainer>
-          <NoticeCard
+          {/* <NoticeCard
             id={1}
             title="2024학년도 1학기 장학금 신청 안내"
             author="학생지원과"
@@ -151,7 +150,7 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
             description="2023년도 학술제가 다음 달 개최됩니다. 이번 학술제의 주제는 '미래 기술과 인류의 공존'입니다."
             date="2023-11-13"
             iconType="AWARD"
-          />
+          /> */}
         </ContentNoticeCardContainer>
       </ContentContainer>
       <ContentButtonContainer>
