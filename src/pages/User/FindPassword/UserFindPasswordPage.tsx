@@ -1,4 +1,6 @@
-import { FC } from 'react'
+import { message } from 'antd'
+import { postFindPassword } from 'apis/postFindPassword'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   BannerContainer,
@@ -11,7 +13,6 @@ import {
   FooterLink,
   InputField,
   Root,
-  SendNumButton,
   StyledForm,
   StyledFormItem,
 } from './styled'
@@ -23,14 +24,19 @@ type UserFindPasswordPageProps = {
 export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className }) => {
   const navigate = useNavigate()
 
-  const onClickSendCode = () => {
-    console.log('인증번호 보내기 버튼 클릭')
-    // 인증번호 보내기 내용 추가
-  }
+  const [email, setEmail] = useState<string>('')
 
   const onClickConfirmButton = () => {
-    console.log('확인 버튼 클릭')
-    navigate('/user/login') // 필요에 따라 경로 조정
+    if (email === '') {
+      message.error('이메일을 입력해주세요.')
+      return
+    }
+    postFindPassword({ email }).then((res) => {
+      if (res) {
+        alert('새로운 비밀번호가 이메일로 전송되었습니다.')
+        navigate('/user/login') // 필요에 따라 경로 조정
+      }
+    })
   }
 
   return (
@@ -46,32 +52,16 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
       <StyledForm layout="vertical">
         <FindContainer>
           <FindTitleTypo>비밀번호 찾기</FindTitleTypo>
-          <StyledFormItem name="name" label="이름" rules={[{ required: false, message: '이름을 입력해주세요' }]}>
-            <InputField placeholder="이름" />
+          <StyledFormItem name="name" label="이메일" rules={[{ required: false, message: '이름을 입력해주세요' }]}>
+            <InputField
+              placeholder="이메일을 입력해주세요."
+              value={email}
+              onChange={(e: any) => setEmail(e.target.value)}
+            />
           </StyledFormItem>
-
-          <StyledFormItem
-            name="email"
-            label="이메일 주소"
-            rules={[{ required: false, message: '이메일 주소를 입력해주세요' }]}
-          >
-            <InputField placeholder="이메일 주소" />
-            <SendNumButton type="primary" onClick={onClickSendCode}>
-              인증번호 보내기
-            </SendNumButton>
-          </StyledFormItem>
-
-          <StyledFormItem
-            name="verificationCode"
-            label="인증번호 입력"
-            rules={[{ required: false, message: '인증번호를 입력해주세요' }]}
-          >
-            <InputField placeholder="인증번호" />
-          </StyledFormItem>
-
           <StyledFormItem>
             <ConfirmButton type="primary" htmlType="submit" onClick={onClickConfirmButton}>
-              확인
+              새로운 비밀번호 보내기
             </ConfirmButton>
           </StyledFormItem>
         </FindContainer>
