@@ -200,7 +200,15 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
               maxLength={30}
             />
           )}
-          <Button type={'primary'}>신고하기</Button>
+          <Button
+            type={'primary'}
+            onClick={() => {
+              alert('신고 접수가 완료되었습니다.')
+              setReportVisible(false)
+            }}
+          >
+            신고하기
+          </Button>
           <Button type={'text'} onClick={() => setReportVisible(false)}>
             취소
           </Button>
