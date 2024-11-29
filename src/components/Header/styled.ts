@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, BellOutlined, SettingOutlined } from '@ant-design/icons'
-import { Typography } from 'antd'
+import { Button, Typography } from 'antd'
 import { PRIMARY_COLOR } from 'constants/color'
 import { HEADER_HEIGHT, MOBILE_CONTAINER_MAX_WIDTH, MOBILE_CONTAINER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
@@ -33,6 +33,7 @@ export const MenuContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
+  position: relative;
 `
 
 export const MenuButtonBell = styled(BellOutlined)`
@@ -52,4 +53,11 @@ export const TitleTypo = styled(Typography)`
 export const MenuButtonSpace = styled.div`
   width: 40px;
   height: 40px;
+`
+
+export const SecretButton = styled(Button)`
+  width: 100px;
+  position: absolute;
+  top: 15px;
+  left: calc(50% - 50px);
 `
