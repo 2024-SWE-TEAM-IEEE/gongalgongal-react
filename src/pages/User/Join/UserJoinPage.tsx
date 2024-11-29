@@ -73,6 +73,10 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
       message.error('비밀번호와 비밀번호 확인이 일치하지 않습니다.')
       return
     }
+    if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      message.error('비밀번호는 8글자 이상이며 특수문자를 포함해야 합니다.')
+      return
+    }
     if (selectedCategoryList.length === 0) {
       message.error('관심사를 선택해주세요.')
       return
