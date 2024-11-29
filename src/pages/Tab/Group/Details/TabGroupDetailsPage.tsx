@@ -107,7 +107,7 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
         })
         .catch((res) => {
           if (res) {
-            alert('이미 참가한 공지 그룹입니다.')
+            alert('이미 탈퇴한 공지 그룹입니다.')
           }
         })
     }
