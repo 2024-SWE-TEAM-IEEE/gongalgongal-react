@@ -87,7 +87,7 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
 
     const interval = setInterval(() => {
       fetchMessages()
-    }, 7000)
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [])
