@@ -51,12 +51,16 @@ export const NoticeCard: FC<NoticeCardProps> = ({ className, noticeItem }) => {
 
   const onClickStoreButton = () => {
     if (stored) {
-      deleteNoticeStore({ id: noticeItem.id })
+      deleteNoticeStore({ id: noticeItem.id }).then((res) => {
+        window.location.reload()
+      })
       setStored(false)
-      return
+    } else {
+      postNoticeStore({ id: noticeItem.id }).then((res) => {
+        window.location.reload()
+      })
+      setStored(true)
     }
-    postNoticeStore({ id: noticeItem.id })
-    setStored(true)
   }
 
   const onClickStarButton = () => {
