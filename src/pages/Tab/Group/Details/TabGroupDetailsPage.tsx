@@ -5,7 +5,7 @@ import { postNoticeGroupJoin } from 'apis/postNoticeGroupJoin'
 import { postNoticeGroupLeave } from 'apis/postNoticeGroupLeave'
 import { Header } from 'components/Header'
 import { FC, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { NoticeGroupItemType } from 'types/common'
 import {
   ContentButton,
@@ -66,6 +66,7 @@ const categories = [
 ]
 
 export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className }) => {
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   const { id } = useParams()
   const [noticeGroupItem, setNoticeGroupItem] = useState<NoticeGroupItemType>()
@@ -153,6 +154,14 @@ export const TabGroupDetailsPage: FC<TabGroupDetailsPageProps> = ({ className })
               <ContentSectionSiteContainer>
                 <ContentSectionSiteWrapper>
                   <ContentSectionSiteTypo>{noticeGroupItem.site_url}</ContentSectionSiteTypo>
+                </ContentSectionSiteWrapper>
+              </ContentSectionSiteContainer>
+            </ContentSectionContainer>
+            <ContentSectionContainer>
+              <ContentSectionTitleTypo>공유 url</ContentSectionTitleTypo>
+              <ContentSectionSiteContainer>
+                <ContentSectionSiteWrapper>
+                  <ContentSectionSiteTypo>{`http://gongalgongal.dothome.co.kr${pathname}`}</ContentSectionSiteTypo>
                 </ContentSectionSiteWrapper>
               </ContentSectionSiteContainer>
             </ContentSectionContainer>
