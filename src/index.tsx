@@ -11,6 +11,7 @@ import { TabGroupDetailsPage } from 'pages/Tab/Group/Details'
 import { TabGroupManagePage } from 'pages/Tab/Group/Manage'
 import { TabHomePage } from 'pages/Tab/Home'
 import { TabUserInfoPage } from 'pages/Tab/UserInfo'
+import { TermsPage } from 'pages/Terms'
 import { UserFindPasswordPage } from 'pages/User/FindPassword'
 import { UserJoinPage } from 'pages/User/Join'
 import { UserLoginPage } from 'pages/User/Login'
@@ -53,6 +54,8 @@ root.render(
           <ContentContainer>
             <Routes>
               <Route path="/" element={<MainPage />} />
+
+              <Route path="/terms" element={<TermsPage />} />
 
               <Route path="/user/login" element={<UserLoginPage />} />
               <Route path="/user/join" element={<UserJoinPage />} />
