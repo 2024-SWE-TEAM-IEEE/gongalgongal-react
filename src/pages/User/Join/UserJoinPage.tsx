@@ -98,7 +98,6 @@ export const UserJoinPage: FC<UserJoinPageProps> = ({ className }) => {
 
   return (
     <Root className={className}>
-      ``
       <BannerContainer>
         <BannerTitleTypo>공알공알</BannerTitleTypo>
         <BannerSubTitleTypo>

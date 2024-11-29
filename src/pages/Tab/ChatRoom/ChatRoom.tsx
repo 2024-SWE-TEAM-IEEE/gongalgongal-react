@@ -23,11 +23,6 @@ type ChatRoomProps = {
   className?: string
 }
 
-// 채팅방 참여자 타입 정의
-type Member = {
-  name: string
-}
-
 export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
