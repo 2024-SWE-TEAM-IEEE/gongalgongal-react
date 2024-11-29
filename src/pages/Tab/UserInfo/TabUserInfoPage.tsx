@@ -24,6 +24,7 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [selectedCategoryList, setSelectedCategoryList] = useState<any[]>([])
 
@@ -44,7 +45,12 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
       message.error('관심사를 선택해주세요.')
       return
     }
-    putUserInfoUpdate({ email, name, password, selected_category_ids: selectedCategoryList }).then((res) => {
+    putUserInfoUpdate({
+      email,
+      name,
+      password: newPassword === '' ? password : newPassword,
+      selected_category_ids: selectedCategoryList,
+    }).then((res) => {
       if (res) {
         if (res.status.type === 'success') {
           alert('프로필 정보 수정이 완료되었습니다.')
@@ -87,10 +93,20 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
           <ContentInput value={email} disabled />
         </ContentInputContainer>
         <ContentInputContainer>
+          <ContentInputTypo>새로운 비밀번호</ContentInputTypo>
+          <ContentInput
+            type="password"
+            placeholder="새로운 비밀번호를 입력해주세요."
+            value={newPassword}
+            onChange={(e: any) => setNewPassword(e.target.value)}
+          />
+          <ContentInputTypo style={{ fontSize: 10 }}>공란으로 두면 비밀번호가 변경되지 않습니다.</ContentInputTypo>
+        </ContentInputContainer>
+        <ContentInputContainer>
           <ContentInputTypo>비밀번호</ContentInputTypo>
           <ContentInput
             type="password"
-            placeholder="비밀번호를 입력해주세요."
+            placeholder="본인 확인용 비밀번호를 입력해주세요."
             value={password}
             onChange={(e: any) => setPassword(e.target.value)}
           />
