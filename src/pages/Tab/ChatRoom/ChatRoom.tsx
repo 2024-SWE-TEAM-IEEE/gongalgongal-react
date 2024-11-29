@@ -1,8 +1,7 @@
 import { ArrowLeftOutlined, MessageOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Input, Menu, Modal, Select, Typography } from 'antd'
+import { Button, Dropdown, Input, Menu, message, Modal, Select, Typography } from 'antd'
 import { postChat } from 'apis/postChat'
 import { postChatroomJoin } from 'apis/postChatoomJoin'
-import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChatListType } from 'types/common'
@@ -52,47 +51,21 @@ export const TabChatRoomPage: FC<ChatRoomProps> = ({ className }) => {
   }
 
   const handleSendMessage = () => {
-    if (id) {
-      if (newMessage.trim()) {
-        postChat({ noticeId: +id, content: newMessage })
-        setNewMessage('')
+    if (newMessage.length > 1) {
+      if (id) {
+        if (newMessage.trim()) {
+          postChat({ noticeId: +id, content: newMessage })
+          setNewMessage('')
+        }
       }
+    } else {
+      message.error('두 글자 이상만 입력 가능합니다.')
     }
-  }
-
-  const handleReactionClick = (reaction: string) => {
-    setNewMessage((prev) => prev + reaction)
   }
 
   const handleReportMessage = (messageId: number) => {
     setReportMessageId(messageId)
     setReportVisible(true)
-  }
-
-  const handleSubmitReport = async () => {
-    if (reportContent.trim() && reportMessageId !== null) {
-      try {
-        const response = await axios.post('YOUR_REPORT_API', {
-          // 신고 api
-          messageId: reportMessageId,
-          content: reportContent,
-        })
-
-        // 성공 메시지 표시
-        Modal.success({
-          content: response.data.message,
-        })
-      } catch (error) {
-        console.error('신고 오류:', error)
-        Modal.error({
-          content: '신고하는 중 오류가 발생했습니다.',
-        })
-      } finally {
-        setReportVisible(false)
-        setReportContent('')
-        setReportMessageId(null)
-      }
-    }
   }
 
   const menu = (
