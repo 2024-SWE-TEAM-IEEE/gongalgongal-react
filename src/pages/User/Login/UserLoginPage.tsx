@@ -81,7 +81,16 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
             label="이메일 주소"
             rules={[{ required: false, message: '이메일 주소를 입력해주세요' }]}
           >
-            <InputField placeholder="이메일 주소" value={email} onChange={(e: any) => setEmail(e.target.value)} />
+            <InputField
+              placeholder="이메일 주소"
+              value={email}
+              onChange={(e: any) => setEmail(e.target.value)}
+              onKeyPress={(e: any) => {
+                if (e.key === 'Enter') {
+                  onClickLoginButton()
+                }
+              }}
+            />
           </StyledFormItem>
           <StyledFormItem
             name="password"
@@ -92,6 +101,11 @@ export const UserLoginPage: FC<UserLoginPageProps> = ({ className }) => {
               placeholder="비밀번호"
               value={password}
               onChange={(e: any) => setPassword(e.target.value)}
+              onKeyPress={(e: any) => {
+                if (e.key === 'Enter') {
+                  onClickLoginButton()
+                }
+              }}
             />
           </StyledFormItem>
           <StyledFormItem>
