@@ -24,7 +24,7 @@ export const TabChatPage: FC<TabChatPageProps> = ({ className }) => {
   return (
     <Root className={className}>
       <Header />
-      <FilterContainer>채팅방 검색</FilterContainer>
+      <FilterContainer>참가한 채팅방</FilterContainer>
       <ChatRoomCardContainer>
         {chatRoomList.map((chatRoomItem) => (
           <ChatRoomCard chatRoomItem={chatRoomItem} key={`chat_room_item_${chatRoomItem.notice_id}`} />
