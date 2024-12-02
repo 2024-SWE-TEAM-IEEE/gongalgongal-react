@@ -15,6 +15,7 @@ import {
   ContentTitleTypo,
   Root,
 } from './styled'
+import { message } from 'antd'
 
 type TabGroupCreatePageProps = {
   className?: string
@@ -33,6 +34,26 @@ export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) =
   }
 
   const onSubmit = () => {
+    if (name === '') {
+      message.error('공지 그룹 명을 입력해주세요.')
+      return
+    }
+
+    if (description === '') {
+      message.error('설명을 입력해주세요.')
+      return
+    }
+
+    if (url === '') {
+      message.error('url을 입력해주세요.')
+      return
+    }
+
+    if (categoryList.length === 0) {
+      message.error('카테고리를 선택해주세요.')
+      return
+    }
+
     postNoticeGroup({ group_name: name, crawl_site_url: url, description, group_category: selectedCategoryList }).then(
       (res) => {
         if (res) {
