@@ -31,12 +31,16 @@ export const UserFindPasswordPage: FC<UserFindPasswordPageProps> = ({ className 
       message.error('이메일을 입력해주세요.')
       return
     }
-    postFindPassword({ email }).then((res) => {
-      if (res) {
-        alert('새로운 비밀번호가 이메일로 전송되었습니다.')
-        navigate('/user/login') // 필요에 따라 경로 조정
-      }
-    })
+    postFindPassword({ email })
+      .then((res) => {
+        if (res) {
+          alert('새로운 비밀번호가 이메일로 전송되었습니다.')
+          navigate('/user/login') // 필요에 따라 경로 조정
+        }
+      })
+      .catch((res) => {
+        alert('유효하지 않은 이메일입니다.')
+      })
   }
 
   return (
