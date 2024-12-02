@@ -49,7 +49,7 @@ export const TabGroupCreatePage: FC<TabGroupCreatePageProps> = ({ className }) =
       return
     }
 
-    if (categoryList.length === 0) {
+    if (selectedCategoryList.length === 0) {
       message.error('카테고리를 선택해주세요.')
       return
     }
