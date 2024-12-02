@@ -15,6 +15,7 @@ import {
   ContentTitleTypo,
   Root,
 } from './styled'
+import { postUserLogin } from 'apis/postUserLogin'
 
 type TabUserInfoPageProps = {
   className?: string
@@ -45,21 +46,33 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
       message.error('관심사를 선택해주세요.')
       return
     }
-    putUserInfoUpdate({
-      email,
-      name,
-      password: newPassword === '' ? password : newPassword,
-      selected_category_ids: selectedCategoryList,
-    }).then((res) => {
-      if (res) {
-        if (res.status.type === 'success') {
-          alert('프로필 정보 수정이 완료되었습니다.')
-          window.location.reload()
-        } else {
-          alert(res.status.message)
+    postUserLogin({ email, password })
+      .then((res2) => {
+        if (res2) {
+          if (res2.status.type === 'success') {
+            putUserInfoUpdate({
+              email,
+              name,
+              password: newPassword === '' ? password : newPassword,
+              selected_category_ids: selectedCategoryList,
+            }).then((res) => {
+              if (res) {
+                if (res.status.type === 'success') {
+                  alert('프로필 정보 수정이 완료되었습니다.')
+                  window.location.reload()
+                } else {
+                  alert(res.status.message)
+                }
+              }
+            })
+          } else {
+            alert('올바르지 않은 비밀번호입니다.')
+          }
         }
-      }
-    })
+      })
+      .catch((res) => {
+        alert('올바르지 않은 비밀번호입니다.')
+      })
   }
 
   useEffect(() => {
@@ -103,15 +116,6 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
           <ContentInputTypo style={{ fontSize: 10 }}>공란으로 두면 비밀번호가 변경되지 않습니다.</ContentInputTypo>
         </ContentInputContainer>
         <ContentInputContainer>
-          <ContentInputTypo>비밀번호</ContentInputTypo>
-          <ContentInput
-            type="password"
-            placeholder="본인 확인용 비밀번호를 입력해주세요."
-            value={password}
-            onChange={(e: any) => setPassword(e.target.value)}
-          />
-        </ContentInputContainer>
-        <ContentInputContainer>
           <ContentInputTypo>관심사</ContentInputTypo>
           <ContentSelect
             mode="multiple"
@@ -120,6 +124,15 @@ export const TabUserInfoPage: FC<TabUserInfoPageProps> = ({ className }) => {
             onChange={onChangeSelectedCategoryList}
             value={selectedCategoryList}
             options={categoryList}
+          />
+        </ContentInputContainer>
+        <ContentInputContainer>
+          <ContentInputTypo>비밀번호 확인</ContentInputTypo>
+          <ContentInput
+            type="password"
+            placeholder="본인 확인용 비밀번호를 입력해주세요."
+            value={password}
+            onChange={(e: any) => setPassword(e.target.value)}
           />
         </ContentInputContainer>
         <ContentButton type={'primary'} size={'large'} onClick={onSubmit}>
